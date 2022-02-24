@@ -1,5 +1,6 @@
 package com.kdjj.domain.usecase
 
+import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.common.IdGenerator
 import com.kdjj.domain.common.flatMap
 import com.kdjj.domain.model.ImageInfo
@@ -12,7 +13,8 @@ import javax.inject.Inject
 internal class SaveRecipeUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val imageRepository: RecipeImageRepository,
-    private val idGenerator: IdGenerator
+    private val idGenerator: IdGenerator,
+    private val authorIdProvider: AuthorIdProvider
 ) : ResultUseCase<SaveRecipeRequest, Unit> {
 
     override suspend fun invoke(request: SaveRecipeRequest): Result<Unit> {
@@ -45,7 +47,8 @@ internal class SaveRecipeUseCase @Inject constructor(
                         imgPath = totalImgList.first(),
                         stepList = stepList,
                         createTime = System.currentTimeMillis(),
-                        state = RecipeState.LOCAL
+                        state = RecipeState.LOCAL,
+                        authorId = authorIdProvider.getAuthorId()
                     )
                 )
                 RecipeState.LOCAL, RecipeState.UPLOAD, RecipeState.DOWNLOAD -> {
