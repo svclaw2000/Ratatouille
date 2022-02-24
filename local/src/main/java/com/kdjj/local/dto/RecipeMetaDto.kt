@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 
 @Entity(
@@ -31,16 +30,3 @@ internal data class RecipeMetaDto(
     @ColumnInfo(defaultValue = "1")
     val recipeTypeId: Long
 )
-
-internal fun Recipe.toDto(): RecipeMetaDto =
-    RecipeMetaDto(
-        recipeId,
-        title,
-        stuff,
-        imgPath,
-        authorId,
-        isFavorite,
-        createTime,
-        state,
-        type.id.toLong()
-    )

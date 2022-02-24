@@ -7,8 +7,8 @@ import com.kdjj.local.dao.RecipeTempDao
 import com.kdjj.local.dao.UselessImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.UselessImageDto
-import com.kdjj.local.dto.toDomain
-import com.kdjj.local.dto.toTempDto
+import com.kdjj.local.mapper.toDomain
+import com.kdjj.local.mapper.toTempDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
