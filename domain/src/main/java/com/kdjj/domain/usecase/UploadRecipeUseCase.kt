@@ -9,7 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
-class UploadRecipeUseCase @Inject constructor(
+internal class UploadRecipeUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository,
     private val recipeImageRepository: RecipeImageRepository
 ) : ResultUseCase<UploadRecipeRequest, Unit> {

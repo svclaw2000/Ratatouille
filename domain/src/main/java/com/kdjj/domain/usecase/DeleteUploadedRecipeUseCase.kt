@@ -4,7 +4,7 @@ import com.kdjj.domain.model.request.DeleteUploadedRecipeRequest
 import com.kdjj.domain.repository.RecipeRepository
 import javax.inject.Inject
 
-class DeleteUploadedRecipeUseCase @Inject constructor(
+internal class DeleteUploadedRecipeUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository
 ) : ResultUseCase<DeleteUploadedRecipeRequest, Unit> {
 

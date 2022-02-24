@@ -5,7 +5,7 @@ import com.kdjj.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetRecipeUpdateFlowUseCase @Inject constructor(
+internal class GetRecipeUpdateFlowUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository
 ) : FlowUseCase<EmptyRequest, Unit> {
 

@@ -4,7 +4,7 @@ import com.kdjj.domain.model.request.IncreaseOthersRecipeViewCountRequest
 import com.kdjj.domain.repository.RecipeRepository
 import javax.inject.Inject
 
-class IncreaseOthersRecipeViewCountUseCase @Inject constructor(
+internal class IncreaseOthersRecipeViewCountUseCase @Inject constructor(
     private val recipeRepository: RecipeRepository
 ) : ResultUseCase<IncreaseOthersRecipeViewCountRequest, Unit> {
 
