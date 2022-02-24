@@ -6,7 +6,7 @@ import com.kdjj.domain.repository.RecipeImageRepository
 import com.kdjj.domain.repository.RecipeTempRepository
 import javax.inject.Inject
 
-class FetchRecipeTempUseCase @Inject constructor(
+internal class FetchRecipeTempUseCase @Inject constructor(
     private val tempRepository: RecipeTempRepository,
     private val imageRepository: RecipeImageRepository
 ) : ResultUseCase<FetchRecipeTempRequest, Recipe?> {

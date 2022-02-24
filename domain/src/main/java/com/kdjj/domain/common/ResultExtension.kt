@@ -1,8 +1,5 @@
 package com.kdjj.domain.common
 
-import java.lang.Exception
-
-
 inline fun <T> Result<T>.errorMap(
     transform: (Throwable) -> Exception
 ): Result<T> {
