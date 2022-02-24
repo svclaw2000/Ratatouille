@@ -148,6 +148,5 @@
     <dimen name="editor_tempProgress_marginEnd">4dp</dimen>
     <dimen name="editor_card_corner">8dp</dimen>
     <dimen name="search_noResult_textSize">20sp</dimen>
->>>>>>> feat: add no search result #229
 
 </resources>
