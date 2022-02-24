@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.kdjj.domain.model.RecipeType
 
 @Entity(tableName = "RecipeType")
-data class RecipeTypeDto(
+internal data class RecipeTypeDto(
     @PrimaryKey
     val recipeTypeId: Long,
     val title: String
