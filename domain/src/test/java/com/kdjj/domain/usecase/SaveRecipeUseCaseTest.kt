@@ -1,5 +1,6 @@
 package com.kdjj.domain.usecase
 
+import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.common.IdGenerator
 import com.kdjj.domain.model.*
 import com.kdjj.domain.model.request.SaveRecipeRequest
@@ -20,6 +21,7 @@ class SaveRecipeUseCaseTest {
     @Mock private lateinit var recipeRepository: RecipeRepository
     @Mock private lateinit var imageRepository: RecipeImageRepository
     @Mock private lateinit var idGenerator: IdGenerator
+    @Mock private lateinit var authorIdProvider: AuthorIdProvider
 
     private lateinit var saveRecipeUseCase: ResultUseCase<SaveRecipeRequest, Unit>
 
@@ -48,7 +50,12 @@ class SaveRecipeUseCaseTest {
 
     @Before
     fun setup() {
-        saveRecipeUseCase = SaveRecipeUseCase(recipeRepository, imageRepository, idGenerator)
+        saveRecipeUseCase = SaveRecipeUseCase(
+            recipeRepository = recipeRepository,
+            imageRepository = imageRepository,
+            idGenerator = idGenerator,
+            authorIdProvider = authorIdProvider
+        )
     }
 
     @Test
@@ -61,6 +68,7 @@ class SaveRecipeUseCaseTest {
             val savedRecipe = it.arguments[0] as Recipe
             assertEquals(RecipeState.LOCAL, savedRecipe.state)
         }
+        whenever(authorIdProvider.getAuthorId()).thenReturn(DUMMY_STRING)
 
         // when
         val result = saveRecipeUseCase(SaveRecipeRequest(dummyRecipe))
