@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class LocalRecipeListModule {
+internal abstract class LocalRecipeListModule {
     
     @Binds
     @Singleton
