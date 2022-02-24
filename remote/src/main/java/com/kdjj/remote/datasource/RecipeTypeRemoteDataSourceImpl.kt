@@ -2,7 +2,7 @@ package com.kdjj.remote.datasource
 
 import com.kdjj.data.datasource.RecipeTypeRemoteDataSource
 import com.kdjj.domain.model.RecipeType
-import com.kdjj.remote.dto.toDomain
+import com.kdjj.remote.mapper.toDomain
 import com.kdjj.remote.service.RecipeTypeService
 import javax.inject.Inject
 

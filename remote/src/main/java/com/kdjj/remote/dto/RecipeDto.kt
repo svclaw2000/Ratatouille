@@ -1,8 +1,5 @@
 package com.kdjj.remote.dto
 
-import com.kdjj.domain.model.Recipe
-import com.kdjj.domain.model.RecipeState
-
 internal data class RecipeDto(
     val recipeId: String = "",
     val title: String = "",
@@ -14,31 +11,3 @@ internal data class RecipeDto(
     val viewCount: Int = 0,
     val createTime: Long = 0L,
 )
-
-internal fun RecipeDto.toDomain(): Recipe =
-    Recipe(
-        recipeId,
-        title,
-        type.toDomain(),
-        stuff,
-        imgPath,
-        stepList.map { it.toDomain() },
-        authorId,
-        viewCount,
-        false,
-        createTime,
-        RecipeState.NETWORK
-    )
-
-internal fun Recipe.toDto(): RecipeDto =
-    RecipeDto(
-        recipeId,
-        title,
-        type.toDto(),
-        stuff,
-        imgPath,
-        stepList.map { it.toDto() },
-        authorId,
-        viewCount,
-        createTime,
-    )

@@ -1,10 +1,10 @@
 package com.kdjj.remote.datasource
 
-import com.kdjj.domain.common.errorMap
 import com.kdjj.data.datasource.RecipeListRemoteDataSource
+import com.kdjj.domain.common.errorMap
 import com.kdjj.domain.model.Recipe
 import com.kdjj.remote.common.fireStoreExceptionToDomain
-import com.kdjj.remote.dto.toDomain
+import com.kdjj.remote.mapper.toDomain
 import com.kdjj.remote.service.RemoteRecipeListService
 import javax.inject.Inject
 
