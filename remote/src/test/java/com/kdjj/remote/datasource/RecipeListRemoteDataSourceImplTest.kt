@@ -1,7 +1,7 @@
 package com.kdjj.remote.datasource
 
 import com.kdjj.domain.model.*
-import com.kdjj.remote.dto.toDto
+import com.kdjj.remote.mapper.toDto
 import com.kdjj.remote.service.RemoteRecipeListService
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
