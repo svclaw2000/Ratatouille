@@ -6,7 +6,6 @@ import com.kdjj.domain.model.request.ValidateRecipeStepFlowRequest
 import com.kdjj.domain.model.response.ValidateRecipeFlowResponse
 import com.kdjj.domain.model.response.ValidateRecipeStepFlowResponse
 import com.kdjj.domain.usecase.UseCase
-import com.kdjj.presentation.common.IdGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 
@@ -32,8 +31,7 @@ internal sealed class RecipeEditorDto {
 
             fun create(
                 validateUseCase: UseCase<ValidateRecipeFlowRequest, ValidateRecipeFlowResponse>,
-                scope: CoroutineScope,
-                idGenerator: IdGenerator
+                scope: CoroutineScope
             ): RecipeMetaDto {
                 val titleFlow = MutableStateFlow("")
                 val stuffFlow = MutableStateFlow("")
@@ -61,7 +59,7 @@ internal sealed class RecipeEditorDto {
                     ),
 
                     recipeId = "",
-                    authorId = idGenerator.getDeviceId(),
+                    authorId = "",
                     state = RecipeState.CREATE
                 )
             }

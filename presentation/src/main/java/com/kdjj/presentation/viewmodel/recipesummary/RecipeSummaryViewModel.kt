@@ -1,6 +1,7 @@
 package com.kdjj.presentation.viewmodel.recipesummary
 
 import androidx.lifecycle.*
+import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 import com.kdjj.domain.model.RecipeType
@@ -8,7 +9,6 @@ import com.kdjj.domain.model.request.*
 import com.kdjj.domain.usecase.FlowUseCase
 import com.kdjj.domain.usecase.ResultUseCase
 import com.kdjj.presentation.common.Event
-import com.kdjj.presentation.common.IdGenerator
 import com.kdjj.presentation.common.extensions.throttleFirst
 import com.kdjj.presentation.model.RecipeSummaryType
 import com.kdjj.presentation.model.UpdateFavoriteResult
@@ -30,7 +30,7 @@ class RecipeSummaryViewModel @Inject constructor(
     private val uploadRecipeUseCase: ResultUseCase<UploadRecipeRequest, Unit>,
     private val increaseViewCountUseCase: ResultUseCase<IncreaseOthersRecipeViewCountRequest, Unit>,
     private val fetchRecipeTypeListUseCase: ResultUseCase<EmptyRequest, List<RecipeType>>,
-    private val idGenerator: IdGenerator
+    authorIdProvider: AuthorIdProvider
 ) : ViewModel() {
 
     private val _liveRecipe = MutableLiveData<Recipe>()
@@ -68,7 +68,7 @@ class RecipeSummaryViewModel @Inject constructor(
     }
 
     private var isInitialized = false
-    private val userId = idGenerator.getDeviceId()
+    private val userId = authorIdProvider.getAuthorId()
     private var collectJob: Job? = null
 
     val fabClickFlow = MutableSharedFlow<FabClick>(extraBufferCapacity = 1)

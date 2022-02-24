@@ -2,6 +2,7 @@ package com.kdjj.presentation.viewmodel.recipeeditor
 
 import androidx.lifecycle.*
 import androidx.work.*
+import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 import com.kdjj.domain.model.RecipeStepType
@@ -35,8 +36,7 @@ internal class RecipeEditorViewModel @Inject constructor(
     private val fetchRecipeTempUseCase: ResultUseCase<FetchRecipeTempRequest, Recipe?>,
     private val saveRecipeTempUseCase: ResultUseCase<SaveRecipeTempRequest, Unit>,
     private val deleteRecipeTempUseCase: ResultUseCase<DeleteRecipeTempRequest, Unit>,
-    private val workManager: WorkManager,
-    private val idGenerator: IdGenerator
+    private val workManager: WorkManager
 ) : ViewModel() {
 
     private lateinit var recipeMetaDto: RecipeEditorDto.RecipeMetaDto
@@ -244,7 +244,7 @@ internal class RecipeEditorViewModel @Inject constructor(
 
     private fun createNewRecipe() {
         recipeMetaDto =
-            RecipeEditorDto.RecipeMetaDto.create(validateRecipeFlowUseCase, viewModelScope, idGenerator)
+            RecipeEditorDto.RecipeMetaDto.create(validateRecipeFlowUseCase, viewModelScope)
         _liveStepDtoList.value = listOf(
             RecipeEditorDto.RecipeStepDto.create(validateRecipeStepFlowUseCase, viewModelScope)
         )
