@@ -3,7 +3,6 @@ package com.kdjj.local.dto
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.kdjj.domain.model.RecipeStep
 import com.kdjj.domain.model.RecipeStepType
 
 @Entity(
@@ -28,25 +27,3 @@ internal data class RecipeTempStepDto(
     val seconds: Int,
     val parentRecipeId: String,
 )
-
-internal fun RecipeTempStepDto.toDomain() =
-    RecipeStep(
-        stepId,
-        name,
-        type,
-        description,
-        imgPath,
-        seconds
-    )
-
-internal fun RecipeStep.toTempDto(recipeMetaID: String, order: Int): RecipeTempStepDto =
-    RecipeTempStepDto(
-        stepId,
-        name,
-        order,
-        type,
-        description,
-        imgPath,
-        seconds,
-        recipeMetaID
-    )
