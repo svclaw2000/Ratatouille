@@ -2,9 +2,9 @@ package com.kdjj.local.dataSource
 
 import com.kdjj.domain.model.RecipeType
 import com.kdjj.local.dao.RecipeTypeDao
-import com.kdjj.local.dto.toDto
+import com.kdjj.local.mapper.toDto
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
