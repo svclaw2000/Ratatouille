@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteModule {
+internal object RemoteModule {
 
     private const val MAX_DELAY_TIME = 5000L
 

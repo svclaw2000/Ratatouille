@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RemoteRecipeTypeModule {
+internal abstract class RemoteRecipeTypeModule {
     
     @Binds
     @Singleton
