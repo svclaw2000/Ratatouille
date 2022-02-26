@@ -11,9 +11,9 @@ import com.kdjj.domain.model.request.FetchOthersLatestRecipeListRequest
 import com.kdjj.domain.model.request.FetchOthersPopularRecipeListRequest
 import com.kdjj.domain.usecase.ResultUseCase
 import com.kdjj.presentation.common.Event
-import com.kdjj.presentation.model.RecipeListItemModel
+import com.kdjj.presentation.mapper.toRecipeListDto
+import com.kdjj.presentation.model.RecipeListDto
 import com.kdjj.presentation.model.ResponseError
-import com.kdjj.presentation.model.toRecipeListItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -33,8 +33,8 @@ internal class OthersViewModel @Inject constructor(
     private var _liveFetchLock = MutableLiveData(false)
     val liveFetchLock: LiveData<Boolean> get() = _liveFetchLock
 
-    private var _liveRecipeList = MutableLiveData<List<RecipeListItemModel>>()
-    val liveRecipeList: LiveData<List<RecipeListItemModel>> get() = _liveRecipeList
+    private var _liveRecipeList = MutableLiveData<List<RecipeListDto>>()
+    val liveRecipeList: LiveData<List<RecipeListDto>> get() = _liveRecipeList
 
     private var fetchingJob: Job? = null
 
@@ -53,7 +53,7 @@ internal class OthersViewModel @Inject constructor(
 
     sealed class ButtonClick {
         object SearchIconClicked : ButtonClick()
-        class RecipeItemClicked(val item: RecipeListItemModel) : ButtonClick()
+        class RecipeItemClicked(val item: RecipeListDto) : ButtonClick()
     }
 
     init {
@@ -119,7 +119,7 @@ internal class OthersViewModel @Inject constructor(
                     _liveFetchLock.value = false
                     return
                 }
-                val othersRecipeModelList = list.map { recipe -> recipe.toRecipeListItemModel() }
+                val othersRecipeModelList = list.map { recipe -> recipe.toRecipeListDto() }
                 if (it.isEmpty()) _liveRecipeList.value = othersRecipeModelList
                 else _liveRecipeList.value = it.plus(othersRecipeModelList)
             }
@@ -144,7 +144,7 @@ internal class OthersViewModel @Inject constructor(
         clickFlow.tryEmit(ButtonClick.SearchIconClicked)
     }
 
-    fun recipeItemClick(recipeModel: RecipeListItemModel) {
+    fun recipeItemClick(recipeModel: RecipeListDto) {
         clickFlow.tryEmit(ButtonClick.RecipeItemClicked(recipeModel))
     }
 

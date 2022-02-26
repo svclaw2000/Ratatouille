@@ -13,10 +13,10 @@ import com.kdjj.domain.model.request.FetchOthersSearchRecipeListRequest
 import com.kdjj.domain.usecase.FlowUseCase
 import com.kdjj.domain.usecase.ResultUseCase
 import com.kdjj.presentation.common.Event
-import com.kdjj.presentation.model.RecipeListItemModel
+import com.kdjj.presentation.mapper.toRecipeListDto
+import com.kdjj.presentation.model.RecipeListDto
 import com.kdjj.presentation.model.ResponseError
 import com.kdjj.presentation.model.SearchTabState
-import com.kdjj.presentation.model.toRecipeListItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -35,8 +35,8 @@ internal class SearchViewModel @Inject constructor(
     private val _liveTabState = MutableLiveData(SearchTabState.OTHERS_RECIPE)
     val liveTabState: LiveData<SearchTabState> get() = _liveTabState
 
-    private val _liveResultList = MutableLiveData<List<RecipeListItemModel>>(listOf())
-    val liveResultList: LiveData<List<RecipeListItemModel>> get() = _liveResultList
+    private val _liveResultList = MutableLiveData<List<RecipeListDto>>(listOf())
+    val liveResultList: LiveData<List<RecipeListDto>> get() = _liveResultList
 
     val liveKeyword = MutableStateFlow("")
 
@@ -67,7 +67,7 @@ internal class SearchViewModel @Inject constructor(
     }
 
     sealed class ButtonClick {
-        class Summary(val item: RecipeListItemModel) : ButtonClick()
+        class Summary(val item: RecipeListDto) : ButtonClick()
     }
 
     init {
@@ -119,7 +119,7 @@ internal class SearchViewModel @Inject constructor(
                             if (it.isEmpty()) {
                                 _liveNoResult.value = true
                             }
-                            _liveResultList.value = it.map(Recipe::toRecipeListItemModel)
+                            _liveResultList.value = it.map(Recipe::toRecipeListDto)
                             lastKeyword = liveKeyword.value
                             lastTabState = SearchTabState.OTHERS_RECIPE
                         }
@@ -137,7 +137,7 @@ internal class SearchViewModel @Inject constructor(
                             if (it.isEmpty()) {
                                 _liveNoResult.value = true
                             }
-                            _liveResultList.value = it.map(Recipe::toRecipeListItemModel)
+                            _liveResultList.value = it.map(Recipe::toRecipeListDto)
                             lastKeyword = liveKeyword.value
                             lastTabState = SearchTabState.MY_RECIPE
                         }
@@ -171,8 +171,8 @@ internal class SearchViewModel @Inject constructor(
                     )
                         .onSuccess { recipeList ->
                             _liveResultList.value = _liveResultList.value
-                                ?.let { it + recipeList.map(Recipe::toRecipeListItemModel) }
-                                ?: recipeList.map(Recipe::toRecipeListItemModel)
+                                ?.let { it + recipeList.map(Recipe::toRecipeListDto) }
+                                ?: recipeList.map(Recipe::toRecipeListDto)
                         }
                         .onFailure { t ->
                             setException(t)
@@ -187,8 +187,8 @@ internal class SearchViewModel @Inject constructor(
                     )
                         .onSuccess { recipeList ->
                             _liveResultList.value = _liveResultList.value
-                                ?.let { it + recipeList.map(Recipe::toRecipeListItemModel) }
-                                ?: recipeList.map(Recipe::toRecipeListItemModel)
+                                ?.let { it + recipeList.map(Recipe::toRecipeListDto) }
+                                ?: recipeList.map(Recipe::toRecipeListDto)
                         }
                         .onFailure { t ->
                             setException(t)
@@ -199,7 +199,7 @@ internal class SearchViewModel @Inject constructor(
         }
     }
 
-    fun moveToSummary(recipeModel: RecipeListItemModel) {
+    fun moveToSummary(recipeModel: RecipeListDto) {
         clickFlow.tryEmit(ButtonClick.Summary(recipeModel))
     }
 
