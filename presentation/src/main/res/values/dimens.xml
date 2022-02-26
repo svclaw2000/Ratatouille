@@ -149,4 +149,26 @@
     <dimen name="editor_card_corner">8dp</dimen>
     <dimen name="search_noResult_textSize">20sp</dimen>
 
+    <dimen name="listItem_corner">15dp</dimen>
+    <dimen name="listItem_marginVertical">10dp</dimen>
+    <dimen name="listItem_marginHorizontal">15dp</dimen>
+    <dimen name="listItem_image_width">120dp</dimen>
+    <dimen name="listItem_contentLarge_textSize">14sp</dimen>
+    <dimen name="listItem_content_marginStart">15dp</dimen>
+    <dimen name="listItem_content_marginTop">15dp</dimen>
+    <dimen name="listItem_content_marginEnd">10dp</dimen>
+    <dimen name="listItem_contentSmall_textSize">11sp</dimen>
+    <dimen name="listItem_time_marginTop">10dp</dimen>
+    <dimen name="listItem_time_marginStart">15dp</dimen>
+    <dimen name="listItem_viewCount_marginEnd">15dp</dimen>
+    <dimen name="listItem_viewCountImage_marginEnd">8dp</dimen>
+    <dimen name="listItem_viewCountImage_size">20dp</dimen>
+    <dimen name="listItem_stuff_marginTop">10dp</dimen>
+    <dimen name="listItem_stuff_marginEnd">10dp</dimen>
+    <dimen name="listItem_updateTime_marginVertical">15dp</dimen>
+    <dimen name="summary_firstLabel_marginTop">24dp</dimen>
+    <dimen name="myRecipe_stuffLabel_marginStart">16dp</dimen>
+    <dimen name="myRecipe_stuff_marginStart">8dp</dimen>
+    <dimen name="myRecipe_stuff_marginEnd">16dp</dimen>
+
 </resources>

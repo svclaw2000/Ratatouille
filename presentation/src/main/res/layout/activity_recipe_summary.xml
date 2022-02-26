@@ -82,7 +82,7 @@
                 <TextView
                     android:id="@+id/textView_summary_recipeTypeLabel"
                     style="@style/SummaryLabel"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/summary_firstLabel_marginTop"
                     android:text="@string/recipeType"
                     app:layout_constraintStart_toStartOf="@id/guideline_summary_textLeft"
                     app:layout_constraintTop_toBottomOf="@id/cardView_summary_recipeImage" />

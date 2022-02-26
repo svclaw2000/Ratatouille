@@ -123,13 +123,13 @@
                     android:text="@string/recipeStuff"
                     android:textColor="@color/light_300"
                     android:textSize="@dimen/myRecipe_textView_descriptionTitle"
+                    android:layout_marginStart="@dimen/myRecipe_stuffLabel_marginStart"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/textView_myRecipe_description"
                     app:layout_constraintTop_toTopOf="@id/textView_myRecipe_description" />
 
                 <TextView
                     android:id="@+id/textView_myRecipe_description"
-                    android:layout_width="90dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/myRecipe_textView_description_marginTop"
                     android:ellipsize="end"
@@ -137,6 +137,8 @@
                     android:text="@{myRecipeItem.recipe.stuff}"
                     android:textColor="@color/light_300"
                     android:textSize="@dimen/myRecipe_textView_description"
+                    android:layout_marginStart="@dimen/myRecipe_stuff_marginStart"
+                    android:layout_marginEnd="@dimen/myRecipe_stuff_marginEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/textView_myRecipe_descriptionTitle"
                     app:layout_constraintRight_toRightOf="parent"
@@ -145,5 +147,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
