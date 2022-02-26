@@ -9,7 +9,7 @@ import com.kdjj.domain.model.RecipeStep
 import com.kdjj.presentation.databinding.ItemDetailStepBinding
 import com.kdjj.presentation.viewmodel.recipedetail.RecipeDetailViewModel
 
-class RecipeDetailStepListAdapter(
+internal class RecipeDetailStepListAdapter(
     private val viewModel: RecipeDetailViewModel
 ) : SingleViewTypeListAdapter<RecipeStep, ItemDetailStepBinding>(
     object : DiffUtil.ItemCallback<RecipeStep>() {

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.kdjj.presentation.R
 
-class StepDecoration : RecyclerView.ItemDecoration() {
+internal class StepDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,

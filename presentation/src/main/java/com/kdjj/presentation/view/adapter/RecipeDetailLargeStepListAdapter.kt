@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
-import com.kdjj.domain.model.RecipeStep
 import com.kdjj.presentation.databinding.ItemDetailLargeStepBinding
 import com.kdjj.presentation.model.StepTimerModel
 import com.kdjj.presentation.viewmodel.recipedetail.RecipeDetailViewModel
 
-class RecipeDetailLargeStepListAdapter(
+internal class RecipeDetailLargeStepListAdapter(
     private val viewModel: RecipeDetailViewModel
 ) : SingleViewTypeListAdapter<StepTimerModel, ItemDetailLargeStepBinding>(
     object : DiffUtil.ItemCallback<StepTimerModel>() {

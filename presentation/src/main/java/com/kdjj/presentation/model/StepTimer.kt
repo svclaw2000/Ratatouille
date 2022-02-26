@@ -2,7 +2,7 @@ package com.kdjj.presentation.model
 
 import android.os.CountDownTimer
 
-class StepTimer(
+internal class StepTimer(
     leftTimeInMillis: Long,
     private val onTickListener: (Long) -> Unit,
     private val onFinishListener: () -> Unit

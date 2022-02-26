@@ -7,7 +7,7 @@ import com.kdjj.presentation.databinding.ItemListRecipeBinding
 import com.kdjj.presentation.model.RecipeListItemModel
 import com.kdjj.presentation.viewmodel.home.search.SearchViewModel
 
-class SearchRecipeListAdapter(
+internal class SearchRecipeListAdapter(
     private val viewModel: SearchViewModel,
 ) : SingleViewTypeListAdapter<RecipeListItemModel, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
 

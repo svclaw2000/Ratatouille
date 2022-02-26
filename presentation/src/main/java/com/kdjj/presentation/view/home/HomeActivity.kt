@@ -1,7 +1,7 @@
 package com.kdjj.presentation.view.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.kdjj.presentation.R
@@ -9,7 +9,7 @@ import com.kdjj.presentation.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+internal class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 

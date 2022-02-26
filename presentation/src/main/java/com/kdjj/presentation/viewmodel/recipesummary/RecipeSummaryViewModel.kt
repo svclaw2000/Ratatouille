@@ -1,6 +1,9 @@
 package com.kdjj.presentation.viewmodel.recipesummary
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
@@ -20,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeSummaryViewModel @Inject constructor(
+internal class RecipeSummaryViewModel @Inject constructor(
     private val getMyRecipeFlowUseCase: FlowUseCase<GetMyRecipeRequest, Recipe>,
     private val updateMyRecipeFavoriteUseCase: ResultUseCase<UpdateMyRecipeFavoriteRequest, Boolean>,
     private val deleteMyRecipeUseCase: ResultUseCase<DeleteMyRecipeRequest, Unit>,

@@ -8,7 +8,7 @@ import com.kdjj.presentation.databinding.ItemListRecipeBinding
 import com.kdjj.presentation.model.RecipeListItemModel
 import com.kdjj.presentation.viewmodel.home.others.OthersViewModel
 
-class OthersRecipeListAdapter(
+internal class OthersRecipeListAdapter(
     private val viewModel: OthersViewModel,
 ) : SingleViewTypeListAdapter<RecipeListItemModel, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
 
@@ -41,7 +41,7 @@ class OthersRecipeListAdapter(
     }
 }
 
-class RecipeListItemModelDiffCallback : DiffUtil.ItemCallback<RecipeListItemModel>() {
+internal class RecipeListItemModelDiffCallback : DiffUtil.ItemCallback<RecipeListItemModel>() {
 
     override fun areItemsTheSame(oldItem: RecipeListItemModel, newItem: RecipeListItemModel): Boolean =
         oldItem.recipeId == newItem.recipeId

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SingleViewTypeListAdapter<T, VDB : ViewDataBinding> constructor(
+internal abstract class SingleViewTypeListAdapter<T, VDB : ViewDataBinding> constructor(
     diffUtil : DiffUtil.ItemCallback<T>,
 ) : ListAdapter<T, SingleViewTypeViewHolder<VDB>>(diffUtil) {
 
@@ -26,7 +26,7 @@ abstract class SingleViewTypeListAdapter<T, VDB : ViewDataBinding> constructor(
     protected abstract fun bind(holder: SingleViewTypeViewHolder<VDB>, item: T)
 }
 
-class SingleViewTypeViewHolder<VDB : ViewDataBinding> constructor(
+internal class SingleViewTypeViewHolder<VDB : ViewDataBinding> constructor(
     val binding: VDB,
     onViewHolderInit: (VDB, getAdapterPosition: () -> Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {

@@ -12,7 +12,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
 @HiltWorker
-class RecipeUploadWorker @AssistedInject constructor(
+internal class RecipeUploadWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val updateUploadedRecipeUseCase: ResultUseCase<UpdateUploadedRecipeRequest, Unit>,

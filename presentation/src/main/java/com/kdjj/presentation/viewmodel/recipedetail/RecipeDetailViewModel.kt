@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeDetailViewModel @Inject constructor(
+internal class RecipeDetailViewModel @Inject constructor(
     private val ringtone: Ringtone,
     private val getMyRecipeUseCase: ResultUseCase<GetMyRecipeRequest, Recipe>,
     private val fetchOthersRecipeUseCase: ResultUseCase<FetchOthersRecipeRequest, Recipe>,

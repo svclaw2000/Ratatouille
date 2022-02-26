@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class ViewModelModule {
+internal class ViewModelModule {
 
     @Provides
     fun provideRingTone(@ApplicationContext context: Context): Ringtone {

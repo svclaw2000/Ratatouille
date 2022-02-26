@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 
 @AndroidEntryPoint
-class SearchRecipeFragment : Fragment() {
+internal class SearchRecipeFragment : Fragment() {
 
     private var _binding: FragmentSearchRecipeBinding? = null
     private val binding get() = _binding!!

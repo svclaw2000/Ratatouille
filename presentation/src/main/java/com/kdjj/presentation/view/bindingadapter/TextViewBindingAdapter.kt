@@ -6,14 +6,14 @@ import com.kdjj.domain.model.Recipe
 import com.kdjj.presentation.R
 
 @BindingAdapter("formatTotalTime")
-fun TextView.formatTotalTime(totalTime: Int) {
+internal fun TextView.formatTotalTime(totalTime: Int) {
     val min = totalTime / 60
     this.text = if (min == 0) context.getString(R.string.total_time_seconds, totalTime.toString())
     else context.getString(R.string.total_time_min_seconds, min.toString(), (totalTime % 60).toString())
 }
 
 @BindingAdapter("calculateUpdateTime")
-fun TextView.calculateUpdateTime(createTime: Long) {
+internal fun TextView.calculateUpdateTime(createTime: Long) {
     val secs = (System.currentTimeMillis() - createTime) / 1000
 
     // 분 60     시간 3600    하루 24 * 3600    1달 : 30 * 24 * 3600     1년 : 365 * 24 * 3600

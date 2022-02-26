@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OthersViewModel @Inject constructor(
+internal class OthersViewModel @Inject constructor(
     private val fetchOthersLatestRecipeListUseCase: ResultUseCase<FetchOthersLatestRecipeListRequest, List<Recipe>>,
     private val fetchOthersPopularRecipeListUseCase: ResultUseCase<FetchOthersPopularRecipeListRequest, List<Recipe>>,
 ) : ViewModel() {

@@ -7,7 +7,7 @@ import com.kdjj.domain.model.RecipeStep
 import com.kdjj.presentation.common.Event
 import com.kdjj.presentation.common.Notifications
 
-class StepTimerModel (
+internal class StepTimerModel (
     val recipeStep: RecipeStep,
     private val notifications: Notifications,
     private val onFinishListener: (StepTimerModel) -> Unit

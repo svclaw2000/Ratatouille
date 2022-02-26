@@ -1,6 +1,6 @@
 package com.kdjj.presentation.common
 
-open class Event<out T>(private val content: T) {
+internal open class Event<out T>(private val content: T) {
     
     @Suppress("MemberVisibilityCanBePrivate")
     var hasBeenHandled = false
