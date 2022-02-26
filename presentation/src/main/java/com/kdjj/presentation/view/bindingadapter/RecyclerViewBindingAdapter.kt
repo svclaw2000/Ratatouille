@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("app:submitList")
-fun <T, VH : RecyclerView.ViewHolder> RecyclerView.submitList(list: List<T>?) {
+internal fun <T, VH : RecyclerView.ViewHolder> RecyclerView.submitList(list: List<T>?) {
     (adapter as? ListAdapter<T, VH>)?.submitList(list) {
         invalidateItemDecorations()
     }
@@ -15,12 +15,12 @@ fun <T, VH : RecyclerView.ViewHolder> RecyclerView.submitList(list: List<T>?) {
 
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter(value = ["list", "callback"], requireAll = true)
-fun <T, VH : RecyclerView.ViewHolder> RecyclerView.submitList(list: List<T>?, callback: Runnable) {
+internal fun <T, VH : RecyclerView.ViewHolder> RecyclerView.submitList(list: List<T>?, callback: Runnable) {
     (adapter as? ListAdapter<T, VH>)?.submitList(list, callback)
 }
 
 @BindingAdapter("app:moveTo")
-fun RecyclerView.moveTo(i: Int?) {
+internal fun RecyclerView.moveTo(i: Int?) {
     val scroller = (tag as? LinearSmoothScroller) ?: object : LinearSmoothScroller(context) {
         override fun getVerticalSnapPreference(): Int = SNAP_TO_START
     }.also {

@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class MyRecipeFragment : Fragment() {
+internal class MyRecipeFragment : Fragment() {
 
     private var _binding: FragmentMyRecipeBinding? = null
     private val binding get() = _binding!!

@@ -13,7 +13,7 @@ import com.kdjj.presentation.databinding.ItemDetailTimerBinding
 import com.kdjj.presentation.model.StepTimerModel
 import com.kdjj.presentation.viewmodel.recipedetail.RecipeDetailViewModel
 
-class RecipeDetailTimerListAdapter(
+internal class RecipeDetailTimerListAdapter(
     private val viewModel: RecipeDetailViewModel
 ) : SingleViewTypeListAdapter<StepTimerModel, ItemDetailTimerBinding>(
     object : DiffUtil.ItemCallback<StepTimerModel>() {

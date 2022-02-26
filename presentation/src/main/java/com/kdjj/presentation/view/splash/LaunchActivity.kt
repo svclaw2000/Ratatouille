@@ -2,15 +2,15 @@ package com.kdjj.presentation.view.splash
 
 import android.animation.ObjectAnimator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.postDelayed
 import com.kdjj.presentation.databinding.ActivitySplashBinding
 import com.kdjj.presentation.view.home.HomeActivity
 
-class LaunchActivity : AppCompatActivity() {
+internal class LaunchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
 

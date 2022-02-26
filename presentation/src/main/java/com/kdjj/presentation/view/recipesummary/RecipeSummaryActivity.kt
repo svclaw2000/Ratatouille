@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class RecipeSummaryActivity : AppCompatActivity() {
+internal class RecipeSummaryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecipeSummaryBinding
     private val recipeSummaryViewModel: RecipeSummaryViewModel by viewModels()

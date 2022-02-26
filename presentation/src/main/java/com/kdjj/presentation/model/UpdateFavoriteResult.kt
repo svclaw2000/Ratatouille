@@ -1,6 +1,6 @@
 package com.kdjj.presentation.model
 
-enum class UpdateFavoriteResult {
+internal enum class UpdateFavoriteResult {
     ADD,
     REMOVE,
     ERROR

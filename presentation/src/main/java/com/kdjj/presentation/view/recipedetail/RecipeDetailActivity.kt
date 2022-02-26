@@ -3,17 +3,16 @@ package com.kdjj.presentation.view.recipedetail
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kdjj.domain.model.*
+import com.kdjj.domain.model.RecipeState
 import com.kdjj.presentation.R
 import com.kdjj.presentation.common.*
 import com.kdjj.presentation.databinding.ActivityRecipeDetailBinding
@@ -29,7 +28,7 @@ import com.kdjj.presentation.viewmodel.recipedetail.RecipeDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RecipeDetailActivity : AppCompatActivity() {
+internal class RecipeDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecipeDetailBinding
     private val viewModel: RecipeDetailViewModel by viewModels()

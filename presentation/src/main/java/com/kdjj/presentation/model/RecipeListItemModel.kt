@@ -3,7 +3,7 @@ package com.kdjj.presentation.model
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 
-data class RecipeListItemModel(
+internal data class RecipeListItemModel(
     val recipeId: String,
     val title: String,
     val totalTime: Int,

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.kdjj.presentation.R
 
-class TimerDecoration : RecyclerView.ItemDecoration() {
+internal class TimerDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,

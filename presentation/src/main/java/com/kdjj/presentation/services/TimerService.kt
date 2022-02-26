@@ -1,14 +1,11 @@
 package com.kdjj.presentation.services
 
-
 import android.content.Intent
-import android.os.CountDownTimer
-import android.util.Log
 import androidx.lifecycle.LifecycleService
 import com.kdjj.presentation.common.ACTION_START
 import com.kdjj.presentation.common.Notifications
 
-class TimerService : LifecycleService() {
+internal class TimerService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let { intent ->
