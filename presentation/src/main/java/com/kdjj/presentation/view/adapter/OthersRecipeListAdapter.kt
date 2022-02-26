@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.kdjj.presentation.databinding.ItemListRecipeBinding
-import com.kdjj.presentation.model.RecipeListItemModel
+import com.kdjj.presentation.model.RecipeListDto
 import com.kdjj.presentation.viewmodel.home.others.OthersViewModel
 
 internal class OthersRecipeListAdapter(
     private val viewModel: OthersViewModel,
-) : SingleViewTypeListAdapter<RecipeListItemModel, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
+) : SingleViewTypeListAdapter<RecipeListDto, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemListRecipeBinding =
         ItemListRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,7 +26,7 @@ internal class OthersRecipeListAdapter(
 
     override fun bind(
         holder: SingleViewTypeViewHolder<ItemListRecipeBinding>,
-        item: RecipeListItemModel,
+        item: RecipeListDto,
     ) {
        with(holder.binding) {
            recipe = item
@@ -41,11 +41,11 @@ internal class OthersRecipeListAdapter(
     }
 }
 
-internal class RecipeListItemModelDiffCallback : DiffUtil.ItemCallback<RecipeListItemModel>() {
+internal class RecipeListItemModelDiffCallback : DiffUtil.ItemCallback<RecipeListDto>() {
 
-    override fun areItemsTheSame(oldItem: RecipeListItemModel, newItem: RecipeListItemModel): Boolean =
+    override fun areItemsTheSame(oldItem: RecipeListDto, newItem: RecipeListDto): Boolean =
         oldItem.recipeId == newItem.recipeId
 
-    override fun areContentsTheSame(oldItem: RecipeListItemModel, newItem: RecipeListItemModel): Boolean =
+    override fun areContentsTheSame(oldItem: RecipeListDto, newItem: RecipeListDto): Boolean =
         oldItem == newItem
 }
