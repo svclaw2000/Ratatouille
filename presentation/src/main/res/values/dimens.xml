@@ -21,23 +21,10 @@
     <dimen name="detailItem_title_marginStart">8dp</dimen>
     <dimen name="detailItem_title_textSize">18sp</dimen>
 
-    <dimen name="detail_addTimerDivider_marginVertical">8dp</dimen>
-    <dimen name="detail_btnAddTimer_corner">8dp</dimen>
-    <dimen name="detail_btnAddTimer_margin">16dp</dimen>
-    <dimen name="detail_btnAddTimer_textSize">16sp</dimen>
-    <dimen name="detail_imageView_height">200dp</dimen>
-    <dimen name="detail_largeImage_height">250dp</dimen>
     <dimen name="detail_stepItem_paddingHorizontal">8dp</dimen>
     <dimen name="detail_stepItem_paddingVertical">12dp</dimen>
     <dimen name="detail_stepListSelected_textSize">18sp</dimen>
     <dimen name="detail_stepList_textSize">16sp</dimen>
-    <dimen name="detail_stepList_width">200dp</dimen>
-    <dimen name="detail_stepType_textSize">16sp</dimen>
-    <dimen name="detail_step_margin">32dp</dimen>
-    <dimen name="detail_step_textSize">24sp</dimen>
-    <dimen name="detail_textAddTimer_padding">16dp</dimen>
-    <dimen name="detail_timerDescription_margin">16dp</dimen>
-    <dimen name="detail_timerDescription_textSize">14sp</dimen>
     <dimen name="detail_timerTime_marginTop">4dp</dimen>
     <dimen name="detail_timerTime_textSize">16sp</dimen>
     <dimen name="detail_timerTitle_textSize">12sp</dimen>
@@ -46,7 +33,6 @@
     <dimen name="detail_timer_marginHorizontal">8dp</dimen>
     <dimen name="detail_timer_marginVertical">16dp</dimen>
     <dimen name="detail_timer_padding">12dp</dimen>
-    <dimen name="detail_timer_width">80sp</dimen>
 
     <dimen name="dialog_button_marginTop">32dp</dimen>
     <dimen name="dialog_button_padding">16dp</dimen>
@@ -56,8 +42,6 @@
     <dimen name="dialog_corner">16dp</dimen>
     <dimen name="dialog_title_marginTop">24dp</dimen>
     <dimen name="dialog_title_textSize">18sp</dimen>
-
-    <dimen name="divider_size">1dp</dimen>
 
     <dimen name="editor_btnAddHeight_height">70dp</dimen>
     <dimen name="editor_card_corner">8dp</dimen>
@@ -149,7 +133,6 @@
     <dimen name="summary_cardView_strokeWidth">1dp</dimen>
     <dimen name="summary_fab_marginBottom">100dp</dimen>
     <dimen name="summary_fab_marginEnd">16dp</dimen>
-    <dimen name="summary_fab_padding">8dp</dimen>
     <dimen name="summary_fab_size">40dp</dimen>
     <dimen name="summary_fav_elevation">4dp</dimen>
     <dimen name="summary_firstLabel_marginTop">24dp</dimen>
@@ -160,7 +143,6 @@
     <dimen name="summary_floatingButton_paddingVertical">4dp</dimen>
     <dimen name="summary_floatingButton_textSize">12sp</dimen>
     <dimen name="summary_imageView_height">265dp</dimen>
-    <dimen name="summary_label_marginStart">32dp</dimen>
     <dimen name="summary_label_marginTop">16dp</dimen>
     <dimen name="summary_label_textSize">16sp</dimen>
     <dimen name="summary_lastItem_marginBottom">100dp</dimen>
@@ -168,7 +150,5 @@
     <dimen name="summary_recipeImage_marginTop">-15dp</dimen>
     <dimen name="summary_summaryText_padding">16dp</dimen>
     <dimen name="summary_textCardView_marginTop">8dp</dimen>
-    <dimen name="summary_text_marginEnd">16dp</dimen>
-    <dimen name="summary_text_marginStart">32dp</dimen>
     <dimen name="summary_text_textSize">14sp</dimen>
 </resources>
