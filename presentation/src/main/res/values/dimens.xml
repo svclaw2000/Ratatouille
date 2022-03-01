@@ -28,7 +28,7 @@
     <dimen name="detail_timerTime_marginTop">4dp</dimen>
     <dimen name="detail_timerTime_textSize">16sp</dimen>
     <dimen name="detail_timerTitle_textSize">12sp</dimen>
-    <dimen name="detail_timer_animation">50dp</dimen>
+    <dimen name="detail_timer_animationDistance">50dp</dimen>
     <dimen name="detail_timer_corner">12dp</dimen>
     <dimen name="detail_timer_marginHorizontal">8dp</dimen>
     <dimen name="detail_timer_marginVertical">16dp</dimen>
@@ -89,13 +89,9 @@
     <dimen name="listItem_viewCountImage_size">20dp</dimen>
     <dimen name="listItem_viewCount_marginEnd">15dp</dimen>
 
-    <dimen name="myRecipe_cardView_corner">15dp</dimen>
-    <dimen name="myRecipe_cardView_elevation">8dp</dimen>
-    <dimen name="myRecipe_cardView_marginBottom">12dp</dimen>
-    <dimen name="myRecipe_cardView_marginStart">16dp</dimen>
-    <dimen name="myRecipe_cardView_marginTop">12dp</dimen>
-    <dimen name="myRecipe_cardView_selected">6dp</dimen>
-    <dimen name="myRecipe_cardView_width">160dp</dimen>
+    <dimen name="myRecipeItem_corner">15dp</dimen>
+    <dimen name="myRecipeItem_elevation">8dp</dimen>
+    <dimen name="myRecipeItem_width">160dp</dimen>
     <dimen name="myRecipe_padding">10dp</dimen>
     <dimen name="myRecipe_progress_height">16dp</dimen>
     <dimen name="myRecipe_progress_marginStart">10dp</dimen>

@@ -132,7 +132,7 @@ internal class MyRecipeFragment : Fragment() {
         binding.recyclerViewMyRecipe.apply {
 
             val displayWidth = resources.displayMetrics.widthPixels
-            val itemWidth = resources.getDimensionPixelSize(R.dimen.myRecipe_cardView_width)
+            val itemWidth = resources.getDimensionPixelSize(R.dimen.myRecipeItem_width)
             val spanCount = maxOf(displayWidth / itemWidth, 2)
             layoutManager = GridLayoutManager(requireContext(), spanCount)
             adapter = myRecipeAdapter
