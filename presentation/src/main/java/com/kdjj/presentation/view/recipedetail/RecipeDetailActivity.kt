@@ -139,7 +139,7 @@ internal class RecipeDetailActivity : AppCompatActivity() {
                             ObjectAnimator.ofFloat(
                                 binding.recyclerViewDetailTimer,
                                 View.TRANSLATION_Y,
-                                resources.getDimensionPixelSize(R.dimen.detail_timer_animation)
+                                resources.getDimensionPixelSize(R.dimen.detail_timer_animationDistance)
                                     .toFloat(),
                                 0f,
                             ),
