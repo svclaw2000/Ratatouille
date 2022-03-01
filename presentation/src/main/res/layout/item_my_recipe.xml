@@ -40,9 +40,8 @@
             app:cardElevation="@dimen/myRecipeItem_elevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="@color/blue_600"
             app:strokeWidth="@{myRecipeViewModel.liveRecipeItemSelected == myRecipeItem ? 6 : 0}">
@@ -65,8 +64,8 @@
                     android:layout_height="match_parent"
                     android:background="@color/dark_500_tp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -78,8 +77,8 @@
                     android:textSize="@dimen/myRecipe_textView_titleSize"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/textView_myRecipe_time"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
@@ -107,7 +106,7 @@
                     formatTotalTime="@{UtilsKt.calculateTotalTime(myRecipeItem.recipe)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/myRecipe_time_marginLeft"
+                    android:layout_marginStart="@dimen/myRecipe_time_marginStart"
                     android:layout_marginTop="@dimen/myRecipe_textView_title_marginTop"
                     android:textColor="@color/light_300"
                     android:textSize="@dimen/myRecipe_textView_timeSize"
@@ -124,7 +123,7 @@
                     android:textColor="@color/light_300"
                     android:textSize="@dimen/myRecipe_textView_descriptionTitle"
                     android:layout_marginStart="@dimen/myRecipe_stuffLabel_marginStart"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textView_myRecipe_description" />
 
                 <TextView
@@ -140,8 +139,8 @@
                     android:layout_marginStart="@dimen/myRecipe_stuff_marginStart"
                     android:layout_marginEnd="@dimen/myRecipe_stuff_marginEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/textView_myRecipe_descriptionTitle"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textView_myRecipe_descriptionTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView_myRecipe_time" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

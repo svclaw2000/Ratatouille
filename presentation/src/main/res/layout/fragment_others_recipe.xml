@@ -21,8 +21,8 @@
             style="@style/Toolbar"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:checkedButton="@id/radioButton_orderByDate"
             android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_others">
 
             <com.kdjj.presentation.view.home.my.TextRadioButton
@@ -43,7 +43,7 @@
                 android:onClick="@{()->viewModel.setChecked(OthersSortType.LATEST)}"
                 android:button="@null"
                 android:minWidth="0dp"
-                android:layout_marginStart="@dimen/myRecipe_radioButton_marginLeft"
+                android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
                 android:text="@string/others_orderByDate" />
 
             <com.kdjj.presentation.view.home.my.TextRadioButton
@@ -53,7 +53,7 @@
                 android:checked="@{viewModel.liveSortType ==   OthersSortType.POPULAR}"
                 android:onClick="@{()->viewModel.setChecked(OthersSortType.POPULAR)}"
                 android:button="@null"
-                android:layout_marginStart="@dimen/myRecipe_radioButton_marginLeft"
+                android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
                 android:text="@string/others_orderByPopular" />
 
         </RadioGroup>
