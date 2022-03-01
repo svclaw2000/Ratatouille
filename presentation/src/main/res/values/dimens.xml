@@ -96,7 +96,7 @@
     <dimen name="myRecipe_progress_height">16dp</dimen>
     <dimen name="myRecipe_progress_marginStart">10dp</dimen>
     <dimen name="myRecipe_progress_width">16dp</dimen>
-    <dimen name="myRecipe_radioButton_marginLeft">24dp</dimen>
+    <dimen name="myRecipe_radioButton_marginStart">24dp</dimen>
     <dimen name="myRecipe_stuffLabel_marginStart">16dp</dimen>
     <dimen name="myRecipe_stuff_marginEnd">16dp</dimen>
     <dimen name="myRecipe_stuff_marginStart">8dp</dimen>
@@ -106,7 +106,7 @@
     <dimen name="myRecipe_textView_timeSize">12sp</dimen>
     <dimen name="myRecipe_textView_titleSize">14sp</dimen>
     <dimen name="myRecipe_textView_title_marginTop">8dp</dimen>
-    <dimen name="myRecipe_time_marginLeft">8dp</dimen>
+    <dimen name="myRecipe_time_marginStart">8dp</dimen>
 
     <dimen name="search_icSearch_insetRight">12dp</dimen>
     <dimen name="search_keyword_textSize">14sp</dimen>
