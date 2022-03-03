@@ -147,4 +147,8 @@
     <dimen name="summary_summaryText_padding">16dp</dimen>
     <dimen name="summary_textCardView_marginTop">8dp</dimen>
     <dimen name="summary_text_textSize">14sp</dimen>
+    <dimen name="myRecipe_radioButton_marginTop">16dp</dimen>
+    <dimen name="myRecipe_content_marginTop">12dp</dimen>
+    <dimen name="others_content_marginTop">12dp</dimen>
+    <dimen name="others_radioButton_marginTop">16dp</dimen>
 </resources>

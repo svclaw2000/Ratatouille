@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.kdjj.presentation.viewmodel.home.others.OthersViewModel.OthersSortType"/>
-
-        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.kdjj.presentation.viewmodel.home.others.OthersViewModel" />
+
+        <import type="com.kdjj.presentation.viewmodel.home.others.OthersViewModel.OthersSortType"/>
+        <import type="android.view.View"/>
+        <import type="android.graphics.Typeface" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,49 +26,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup_others"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView_others_btnDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@id/radioButton_orderByDate"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_others">
+            android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
+            android:onClick="@{() -> viewModel.setChecked(OthersSortType.LATEST)}"
+            android:text="@string/others_orderByDate"
+            android:textColor="@{viewModel.liveSortType == OthersSortType.LATEST ? @color/dark_500 : @color/dark_400}"
+            android:typeface="@{Typeface.defaultFromStyle(viewModel.liveSortType == OthersSortType.LATEST ? Typeface.BOLD : Typeface.NORMAL)}"
+            android:layout_marginTop="@dimen/others_radioButton_marginTop"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_others"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <com.kdjj.presentation.view.home.my.TextRadioButton
-                android:id="@+id/radioButton_others_orderByDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="@{viewModel.liveSortType == OthersSortType.LATEST}"
-                android:onClick="@{()->viewModel.setChecked(OthersSortType.LATEST)}"
-                android:button="@null"
-                android:minWidth="0dp"
-                android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
-                android:text="@string/others_orderByDate" />
-
-            <com.kdjj.presentation.view.home.my.TextRadioButton
-                android:id="@+id/radioButton_others_popular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="@{viewModel.liveSortType ==   OthersSortType.POPULAR}"
-                android:onClick="@{()->viewModel.setChecked(OthersSortType.POPULAR)}"
-                android:button="@null"
-                android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
-                android:text="@string/others_orderByPopular" />
-
-        </RadioGroup>
+        <TextView
+            android:id="@+id/textView_others_btnPopular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
+            android:onClick="@{() -> viewModel.setChecked(OthersSortType.POPULAR)}"
+            android:text="@string/others_orderByPopular"
+            android:textColor="@{viewModel.liveSortType == OthersSortType.POPULAR ? @color/dark_500 : @color/dark_400}"
+            android:typeface="@{Typeface.defaultFromStyle(viewModel.liveSortType == OthersSortType.POPULAR ? Typeface.BOLD : Typeface.NORMAL)}"
+            app:layout_constraintTop_toTopOf="@id/textView_others_btnDate"
+            app:layout_constraintBottom_toBottomOf="@id/textView_others_btnDate"
+            app:layout_constraintStart_toEndOf="@id/textView_others_btnDate" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout_others"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup_others"
+            android:layout_marginTop="@dimen/others_content_marginTop"
+            app:layout_constraintTop_toBottomOf="@id/textView_others_btnDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/progressBar_others_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_others_recipe"
                 android:layout_width="0dp"
@@ -75,9 +69,7 @@
                 tools:listitem="@layout/item_list_recipe"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 callback="@{viewModel.setFetchEnabled}"
-                list="@{viewModel.liveRecipeList}"
-                />
-
+                list="@{viewModel.liveRecipeList}" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
@@ -88,7 +80,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/swipeRefreshLayout_others"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
