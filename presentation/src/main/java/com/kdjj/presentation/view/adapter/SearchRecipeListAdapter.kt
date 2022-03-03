@@ -9,7 +9,7 @@ import com.kdjj.presentation.viewmodel.home.search.SearchViewModel
 
 internal class SearchRecipeListAdapter(
     private val viewModel: SearchViewModel,
-) : SingleViewTypeListAdapter<RecipeListDto, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
+) : SingleViewTypeListAdapter<RecipeListDto, ItemListRecipeBinding>(RecipeListDtoDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemListRecipeBinding =
         ItemListRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
