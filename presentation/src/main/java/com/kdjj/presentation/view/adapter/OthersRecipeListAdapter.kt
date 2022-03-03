@@ -2,7 +2,6 @@ package com.kdjj.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.kdjj.presentation.databinding.ItemListRecipeBinding
 import com.kdjj.presentation.model.RecipeListDto
@@ -10,7 +9,7 @@ import com.kdjj.presentation.viewmodel.home.others.OthersViewModel
 
 internal class OthersRecipeListAdapter(
     private val viewModel: OthersViewModel,
-) : SingleViewTypeListAdapter<RecipeListDto, ItemListRecipeBinding>(RecipeListItemModelDiffCallback()) {
+) : SingleViewTypeListAdapter<RecipeListDto, ItemListRecipeBinding>(RecipeListDtoDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemListRecipeBinding =
         ItemListRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -39,13 +38,4 @@ internal class OthersRecipeListAdapter(
             Glide.with(root.context).clear(imageViewOthersItemImg)
         }
     }
-}
-
-internal class RecipeListItemModelDiffCallback : DiffUtil.ItemCallback<RecipeListDto>() {
-
-    override fun areItemsTheSame(oldItem: RecipeListDto, newItem: RecipeListDto): Boolean =
-        oldItem.recipeId == newItem.recipeId
-
-    override fun areContentsTheSame(oldItem: RecipeListDto, newItem: RecipeListDto): Boolean =
-        oldItem == newItem
 }

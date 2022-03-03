@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 
 internal abstract class SingleViewTypeListAdapter<T, VDB : ViewDataBinding> constructor(
     diffUtil : DiffUtil.ItemCallback<T>,
@@ -24,14 +23,4 @@ internal abstract class SingleViewTypeListAdapter<T, VDB : ViewDataBinding> cons
     }
 
     protected abstract fun bind(holder: SingleViewTypeViewHolder<VDB>, item: T)
-}
-
-internal class SingleViewTypeViewHolder<VDB : ViewDataBinding> constructor(
-    val binding: VDB,
-    onViewHolderInit: (VDB, getAdapterPosition: () -> Int) -> Unit,
-) : RecyclerView.ViewHolder(binding.root) {
-
-    init {
-        onViewHolderInit.invoke(binding, { bindingAdapterPosition })
-    }
 }
