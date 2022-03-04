@@ -43,8 +43,6 @@
     <string name="others_orderByDate">최신순</string>
     <string name="others_orderByPopular">인기순</string>
     <string name="others">힐끔보기</string>
-    <string name="startTimer">타이머 시작</string>
-    <string name="expectedTimeMinSec">예상 소요 시간: %s분 %s초</string>
     <string name="timerMinSec">%02d:%02d</string>
 
     <string name="total_time">소요시간</string>
@@ -61,7 +59,6 @@
     <string name="expectedTime">예상 소요시간</string>
     <string name="ingredient">재료</string>
     <string name="stepSummary">한눈에 보기</string>
-    <string name="floatingActionButton">summary_floatingActionButton</string>
 
     <string name="errorOccurs">오류 발생</string>
     <string name="networkErrorMessage">네트워크와 연결이 끊어졌습니다.</string>
@@ -82,7 +79,6 @@
     <string name="upload">업로드</string>
     <string name="steal">훔쳐오기</string>
     <string name="steal_favorite">훔쳐와서 즐겨찾기 등록</string>
-    <string name="timerButton">타이머 버튼</string>
     <string name="recipeType">레시피 종류</string>
     <string name="savingTemp">임시저장 중</string>
     <string name="noSearchResult">검색 결과가 없습니다.</string>
