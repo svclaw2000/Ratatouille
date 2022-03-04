@@ -92,11 +92,12 @@
     <dimen name="myRecipeItem_corner">15dp</dimen>
     <dimen name="myRecipeItem_elevation">8dp</dimen>
     <dimen name="myRecipeItem_width">160dp</dimen>
+
+    <dimen name="myRecipe_content_marginTop">12dp</dimen>
     <dimen name="myRecipe_padding">10dp</dimen>
     <dimen name="myRecipe_progress_height">16dp</dimen>
     <dimen name="myRecipe_progress_marginStart">10dp</dimen>
     <dimen name="myRecipe_progress_width">16dp</dimen>
-    <dimen name="myRecipe_radioButton_marginStart">24dp</dimen>
     <dimen name="myRecipe_stuffLabel_marginStart">16dp</dimen>
     <dimen name="myRecipe_stuff_marginEnd">16dp</dimen>
     <dimen name="myRecipe_stuff_marginStart">8dp</dimen>
@@ -108,6 +109,8 @@
     <dimen name="myRecipe_textView_title_marginTop">8dp</dimen>
     <dimen name="myRecipe_time_marginStart">8dp</dimen>
 
+    <dimen name="others_content_marginTop">12dp</dimen>
+
     <dimen name="search_icSearch_insetRight">12dp</dimen>
     <dimen name="search_keyword_textSize">14sp</dimen>
     <dimen name="search_noResult_textSize">20sp</dimen>
@@ -118,6 +121,9 @@
     <dimen name="search_tab_paddingVertical">16dp</dimen>
     <dimen name="search_tab_space">4dp</dimen>
     <dimen name="search_tab_textSize">16sp</dimen>
+
+    <dimen name="sortOption_marginStart">24dp</dimen>
+    <dimen name="sortOption_marginTop">16dp</dimen>
 
     <dimen name="splash_image_height">100dp</dimen>
     <dimen name="splash_image_width">120dp</dimen>
@@ -147,8 +153,4 @@
     <dimen name="summary_summaryText_padding">16dp</dimen>
     <dimen name="summary_textCardView_marginTop">8dp</dimen>
     <dimen name="summary_text_textSize">14sp</dimen>
-    <dimen name="myRecipe_radioButton_marginTop">16dp</dimen>
-    <dimen name="myRecipe_content_marginTop">12dp</dimen>
-    <dimen name="others_content_marginTop">12dp</dimen>
-    <dimen name="others_radioButton_marginTop">16dp</dimen>
 </resources>

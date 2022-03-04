@@ -30,12 +30,12 @@
             android:id="@+id/textView_others_btnDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
+            android:layout_marginStart="@dimen/sortOption_marginStart"
             android:onClick="@{() -> viewModel.setChecked(OthersSortType.LATEST)}"
             android:text="@string/others_orderByDate"
             android:textColor="@{viewModel.liveSortType == OthersSortType.LATEST ? @color/dark_500 : @color/dark_400}"
             android:typeface="@{Typeface.defaultFromStyle(viewModel.liveSortType == OthersSortType.LATEST ? Typeface.BOLD : Typeface.NORMAL)}"
-            android:layout_marginTop="@dimen/others_radioButton_marginTop"
+            android:layout_marginTop="@dimen/sortOption_marginTop"
             app:layout_constraintTop_toBottomOf="@id/toolbar_others"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/textView_others_btnPopular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/myRecipe_radioButton_marginStart"
+            android:layout_marginStart="@dimen/sortOption_marginStart"
             android:onClick="@{() -> viewModel.setChecked(OthersSortType.POPULAR)}"
             android:text="@string/others_orderByPopular"
             android:textColor="@{viewModel.liveSortType == OthersSortType.POPULAR ? @color/dark_500 : @color/dark_400}"
