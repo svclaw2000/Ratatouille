@@ -60,7 +60,7 @@ internal class SearchViewModel @Inject constructor(
     private var lastKeyword = ""
     private var lastTabState = _liveTabState.value ?: SearchTabState.OTHERS_RECIPE
 
-    val clickFlow = MutableSharedFlow<ButtonClick>()
+    val clickFlow = MutableSharedFlow<ButtonClick>(extraBufferCapacity = 1)
 
     sealed class SearchRecipeEvent {
         class Exception(val error: ResponseError) : SearchRecipeEvent()
