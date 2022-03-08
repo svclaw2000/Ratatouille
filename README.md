@@ -2,6 +2,7 @@
 
 ![ezgif-3-410d82ddc14b](https://user-images.githubusercontent.com/56161518/144391518-cc98f28a-187c-4db6-ad09-c6b5e6057ee3.gif)  
 
+본 저장소는 부스트캠프 웹모바일 6기에서 진행한 프로젝트 [**[Android08 - Ratatouille]**](https://github.com/boostcampwm-2021/Android08-Ratatouille)를 추가로 개선한 것입니다.
 
 ## 목차
 
