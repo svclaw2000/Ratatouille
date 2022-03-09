@@ -7,12 +7,15 @@ import com.kdjj.domain.model.response.ValidateRecipeFlowResponse
 import com.kdjj.domain.model.response.ValidateRecipeStepFlowResponse
 import com.kdjj.domain.usecase.UseCase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 
 internal sealed class RecipeEditorDto {
 
     data class RecipeMetaDto(
-        val imgPathFlow: MutableStateFlow<String>,
+        val imgPathFlow: MutableStateFlow<String?>,
         val titleFlow: MutableStateFlow<String>,
         val typeIntFlow: MutableStateFlow<Int>,
         val stuffFlow: MutableStateFlow<String>,
@@ -45,7 +48,7 @@ internal sealed class RecipeEditorDto {
                     titleFlow = titleFlow,
                     typeIntFlow = MutableStateFlow(0),
                     stuffFlow = stuffFlow,
-                    imgPathFlow = MutableStateFlow(""),
+                    imgPathFlow = MutableStateFlow(null),
 
                     titleValidFlow = response.titleFlow.stateIn(
                         scope = scope,
@@ -68,7 +71,7 @@ internal sealed class RecipeEditorDto {
 
     data class RecipeStepDto(
         val nameFlow: MutableStateFlow<String>,
-        val imgPathFlow: MutableStateFlow<String>,
+        val imgPathFlow: MutableStateFlow<String?>,
         val typeIntFlow: MutableStateFlow<Int>,
         val descriptionFlow: MutableStateFlow<String>,
         val minutesFlow: MutableStateFlow<Int>,
@@ -96,7 +99,7 @@ internal sealed class RecipeEditorDto {
 
                 return RecipeStepDto(
                     nameFlow = nameFlow,
-                    imgPathFlow = MutableStateFlow(""),
+                    imgPathFlow = MutableStateFlow(null),
                     typeIntFlow = MutableStateFlow(0),
                     descriptionFlow = descriptionFlow,
                     minutesFlow = MutableStateFlow(0),

@@ -23,7 +23,7 @@ internal data class RecipeTempStepDto(
     val order: Int,
     val type: RecipeStepType,
     val description: String,
-    var imgPath: String,
+    val imgPath: String?,
     val seconds: Int,
     val parentRecipeId: String,
 )
