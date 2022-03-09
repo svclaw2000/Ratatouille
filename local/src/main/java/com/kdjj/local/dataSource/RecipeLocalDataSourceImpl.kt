@@ -31,7 +31,8 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                     uselessImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
-                            .plus(recipe.imgPath),
+                            .plus(recipe.imgPath)
+                            .filterNotNull()
                     )
                     recipeDao.deleteStepList(recipe.recipeId)
                     recipeDao.insertRecipeMeta(recipe.toDto())
@@ -61,7 +62,8 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                     uselessImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
-                            .plus(recipe.imgPath),
+                            .plus(recipe.imgPath)
+                            .filterNotNull(),
                     )
                     uselessImageDao.insertUselessImage(
                         originImgPathList.filter { it.isNotBlank() }
@@ -84,8 +86,10 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                 recipeDatabase.withTransaction {
                     uselessImageDao.insertUselessImage(
                         recipe.stepList
-                            .map { UselessImageDto(it.imgPath) }
-                            .plus(UselessImageDto(recipe.imgPath)),
+                            .map { it.imgPath }
+                            .plus(recipe.imgPath)
+                            .filterNotNull()
+                            .map { UselessImageDto(it) }
                     )
                     recipeDao.deleteRecipe(recipe.toDto())
                 }

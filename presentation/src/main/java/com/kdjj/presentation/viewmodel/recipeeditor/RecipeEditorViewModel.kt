@@ -2,7 +2,6 @@ package com.kdjj.presentation.viewmodel.recipeeditor
 
 import androidx.lifecycle.*
 import androidx.work.*
-import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 import com.kdjj.domain.model.RecipeStepType
@@ -13,16 +12,18 @@ import com.kdjj.domain.model.response.ValidateRecipeResponse
 import com.kdjj.domain.model.response.ValidateRecipeStepFlowResponse
 import com.kdjj.domain.usecase.ResultUseCase
 import com.kdjj.domain.usecase.UseCase
-import com.kdjj.presentation.common.*
+import com.kdjj.presentation.common.Event
+import com.kdjj.presentation.common.UPDATED_RECIPE_ID
 import com.kdjj.presentation.common.extensions.throttleFirst
 import com.kdjj.presentation.mapper.toDomain
 import com.kdjj.presentation.mapper.toEditorDto
 import com.kdjj.presentation.model.RecipeEditorDto
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -153,7 +154,7 @@ internal class RecipeEditorViewModel @Inject constructor(
             if (
                 recipeMetaDto.titleFlow.value.isNotEmpty() ||
                 recipeMetaDto.stuffFlow.value.isNotEmpty() ||
-                recipeMetaDto.imgPathFlow.value.isNotEmpty() ||
+                recipeMetaDto.imgPathFlow.value != null ||
                 recipeMetaDto.typeIntFlow.value != 0
             ) {
                 return false
@@ -163,7 +164,7 @@ internal class RecipeEditorViewModel @Inject constructor(
                 if (
                     model.nameFlow.value.isNotEmpty() ||
                     model.descriptionFlow.value.isNotEmpty() ||
-                    model.imgPathFlow.value.isNotEmpty() ||
+                    model.imgPathFlow.value != null ||
                     model.minutesFlow.value != 0 ||
                     model.secondsFlow.value != 0 ||
                     model.typeIntFlow.value != 0

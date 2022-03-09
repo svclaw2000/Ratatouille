@@ -22,7 +22,7 @@ internal class UploadRecipeUseCase @Inject constructor(
                     convertImageToRemote(it)
                 }
             }
-        }.fold(Result.success(listOf<String>())) { acc, deferred ->
+        }.fold(Result.success(listOf<String?>())) { acc, deferred ->
             acc.flatMap { imgList ->
                 deferred.await().flatMap { imgPath ->
                     Result.success(imgList + imgPath)
@@ -50,8 +50,9 @@ internal class UploadRecipeUseCase @Inject constructor(
         }
     }
 
-    private suspend fun convertImageToRemote(imgPath: String): Result<String> {
-        return if (imgPath.isEmpty()) Result.success("")
-        else recipeImageRepository.convertInternalUriToRemoteStorageUri(imgPath)
+    private suspend fun convertImageToRemote(imgPath: String?): Result<String?> {
+        return recipeImageRepository.convertInternalUriToRemoteStorageUri(
+            imgPath ?: return Result.success(null)
+        )
     }
 }

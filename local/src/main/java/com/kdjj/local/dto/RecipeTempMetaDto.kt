@@ -22,7 +22,7 @@ internal data class RecipeTempMetaDto(
     val recipeMetaId: String,
     val title: String,
     val stuff: String,
-    var imgPath: String,
+    val imgPath: String?,
     val authorId: String,
     val isFavorite: Boolean,
     val createTime: Long,

@@ -1,6 +1,6 @@
 package com.kdjj.remote.dto
 
 internal data class RecipeTypeDto(
-    val id: Int = 0,
-    val title: String = ""
+    val id: Int,
+    val title: String
 )
