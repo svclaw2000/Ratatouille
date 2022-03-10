@@ -12,7 +12,8 @@ import com.kdjj.local.dto.*
         RecipeStepDto::class,
         UselessImageDto::class,
         RecipeTempMetaDto::class,
-        RecipeTempStepDto::class
+        RecipeTempStepDto::class,
+        ImageDto::class
     ],
     version = 2
 )
