@@ -14,8 +14,7 @@ import com.kdjj.local.dto.*
         RecipeTempMetaDto::class,
         RecipeTempStepDto::class
     ],
-    version = 1,
-    exportSchema = false
+    version = 2
 )
 internal abstract class RecipeDatabase : RoomDatabase() {
 
