@@ -6,28 +6,34 @@ import com.kdjj.remote.dto.RecipeDto
 
 internal fun RecipeDto.toDomain(): Recipe =
     Recipe(
-        recipeId,
-        title,
-        type.toDomain(),
-        stuff,
-        imgPath,
-        stepList.map { it.toDomain() },
-        authorId,
-        viewCount,
-        false,
-        createTime,
-        RecipeState.NETWORK
+        recipeId = recipeId,
+        title = title,
+        type = type.toDomain(),
+        stuff = stuff,
+        imgHash = when {
+            imgPath == "" -> null
+            imgPath == null -> null
+            imgPath.startsWith("gs") || imgPath.startsWith("http") ->
+                imgPath.substringAfter("images%2F").substringBefore(".png")
+            else -> imgPath
+        },
+        stepList = stepList.map { it.toDomain() },
+        authorId = authorId,
+        viewCount = viewCount,
+        isFavorite = false,
+        createTime = createTime,
+        state = RecipeState.NETWORK
     )
 
 internal fun Recipe.toDto(): RecipeDto =
     RecipeDto(
-        recipeId,
-        title,
-        type.toDto(),
-        stuff,
-        imgPath,
-        stepList.map { it.toDto() },
-        authorId,
-        viewCount,
-        createTime,
+        recipeId = recipeId,
+        title = title,
+        type = type.toDto(),
+        stuff = stuff,
+        imgPath = imgHash,
+        stepList = stepList.map { it.toDto() },
+        authorId = authorId,
+        viewCount = viewCount,
+        createTime = createTime,
     )

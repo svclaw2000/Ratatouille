@@ -8,7 +8,7 @@ internal fun Recipe.toDto(): RecipeMetaDto =
         recipeId,
         title,
         stuff,
-        imgPath,
+        imgHash,
         authorId,
         isFavorite,
         createTime,

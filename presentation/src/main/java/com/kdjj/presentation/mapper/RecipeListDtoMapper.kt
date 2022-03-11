@@ -10,7 +10,7 @@ internal fun Recipe.toRecipeListDto() =
         stepList.map { it.seconds }.fold(0) { acc, i -> acc + i },
         stuff,
         viewCount,
-        imgPath,
+        imgHash,
         createTime,
         state
     )

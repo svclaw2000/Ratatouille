@@ -5,7 +5,7 @@ data class Recipe(
     val title: String,
     val type: RecipeType,
     val stuff: String,
-    val imgPath: String?,
+    val imgHash: String?,
     val stepList: List<RecipeStep>,
     val authorId: String,
     val viewCount: Int,

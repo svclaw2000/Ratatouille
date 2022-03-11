@@ -28,8 +28,8 @@
             android:background="@drawable/bg_editor_image"
             android:contentDescription="@string/recipeImage"
             android:onClick="@{() -> editorViewModel.startSelectImage(dto)}"
-            android:scaleType="@{dto.imgPathFlow.empty ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP }"
-            app:loadImage="@{dto.imgPathFlow}"
+            android:scaleType="@{dto.imgHashFlow == null ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP }"
+            app:loadImage="@{dto.imgHashFlow}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_my_recipe_24dp" />

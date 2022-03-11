@@ -16,7 +16,7 @@ internal class UploadRecipeUseCase @Inject constructor(
 
     override suspend fun invoke(request: UploadRecipeRequest): Result<Unit> {
         val recipe = request.recipe
-        return (listOf(recipe.imgPath) + recipe.stepList.map { it.imgPath }).map {
+        return (listOf(recipe.imgHash) + recipe.stepList.map { it.imgHash }).map {
             coroutineScope {
                 async {
                     convertImageToRemote(it)
@@ -24,19 +24,19 @@ internal class UploadRecipeUseCase @Inject constructor(
             }
         }.fold(Result.success(listOf<String?>())) { acc, deferred ->
             acc.flatMap { imgList ->
-                deferred.await().flatMap { imgPath ->
-                    Result.success(imgList + imgPath)
+                deferred.await().flatMap { imgHash ->
+                    Result.success(imgList + imgHash)
                 }
             }
         }.flatMap { imgList ->
             val stepList = recipe.stepList.mapIndexed { idx, step ->
                 step.copy(
-                    imgPath = imgList[idx + 1]
+                    imgHash = imgList[idx + 1]
                 )
             }
             recipeRepository.uploadRecipe(
                 recipe.copy(
-                    imgPath = imgList.first(),
+                    imgHash = imgList.first(),
                     stepList = stepList,
                     createTime = System.currentTimeMillis()
                 )
@@ -50,9 +50,9 @@ internal class UploadRecipeUseCase @Inject constructor(
         }
     }
 
-    private suspend fun convertImageToRemote(imgPath: String?): Result<String?> {
+    private suspend fun convertImageToRemote(imgHash: String?): Result<String?> {
         return recipeImageRepository.convertInternalUriToRemoteStorageUri(
-            imgPath ?: return Result.success(null)
+            imgHash ?: return Result.success(null)
         )
     }
 }

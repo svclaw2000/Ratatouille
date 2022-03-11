@@ -6,6 +6,8 @@
         <variable
             name="recipe"
             type="com.kdjj.presentation.model.RecipeListDto" />
+
+        <import type="android.widget.ImageView" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,11 +27,11 @@
                 android:id="@+id/imageView_others_item_img"
                 android:layout_width="@dimen/listItem_image_width"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
+                android:scaleType="@{recipe.imgHash == null ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:loadImage="@{recipe.imgPath}" />
+                app:loadImage="@{recipe.imgHash}" />
 
             <TextView
                 android:id="@+id/textView_others_item_title"

@@ -21,7 +21,7 @@ internal class RecipeDetailLargeStepListAdapter(
                     oldItem.recipeStep.type == newItem.recipeStep.type &&
                     oldItem.recipeStep.description == newItem.recipeStep.description &&
                     oldItem.recipeStep.seconds == newItem.recipeStep.seconds &&
-                    oldItem.recipeStep.imgPath == newItem.recipeStep.imgPath
+                    oldItem.recipeStep.imgHash == newItem.recipeStep.imgHash
     }
 ) {
 

@@ -1,8 +1,8 @@
 package com.kdjj.data.repository
 
-import com.kdjj.domain.common.flatMap
 import com.kdjj.data.datasource.RecipeImageLocalDataSource
 import com.kdjj.data.datasource.RecipeImageRemoteDataSource
+import com.kdjj.domain.common.flatMap
 import com.kdjj.domain.model.ImageInfo
 import com.kdjj.domain.repository.RecipeImageRepository
 import javax.inject.Inject
@@ -22,7 +22,7 @@ internal class RecipeImageRepositoryImpl @Inject constructor(
         imageInfo: List<ImageInfo>
     ): Result<List<String>> {
         return imageInfo.chunked(10).map { imgInfoList ->
-            recipeImageLocalDataSource.convertToByteArray(imgInfoList.map { it.uri })
+            recipeImageLocalDataSource.convertToByteArray(imgInfoList.map { it.hash })
                 .flatMap { byteArrayDegreePairList ->
                     recipeImageLocalDataSource.convertToInternalStorageUri(
                         byteArrayDegreePairList.map { it.first },
@@ -45,7 +45,7 @@ internal class RecipeImageRepositoryImpl @Inject constructor(
         imageInfo: List<ImageInfo>
     ): Result<List<String>> =
         imageInfo.chunked(10).map { imgInfoList ->
-            recipeImageRemoteDataSource.fetchRecipeImage(imgInfoList.map { it.uri })
+            recipeImageRemoteDataSource.fetchRecipeImage(imgInfoList.map { it.hash })
                 .flatMap { byteArrayList ->
                     recipeImageLocalDataSource.convertToInternalStorageUri(
                         byteArrayList,

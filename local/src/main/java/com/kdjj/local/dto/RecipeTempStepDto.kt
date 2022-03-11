@@ -13,6 +13,12 @@ import com.kdjj.domain.model.RecipeStepType
             parentColumns = arrayOf("recipeMetaId"),
             childColumns = arrayOf("parentRecipeId"),
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = ImageDto::class,
+            parentColumns = arrayOf("hash"),
+            childColumns = arrayOf("imgHash"),
+            onDelete = ForeignKey.RESTRICT
         )
     ]
 )
@@ -23,7 +29,7 @@ internal data class RecipeTempStepDto(
     val order: Int,
     val type: RecipeStepType,
     val description: String,
-    val imgPath: String?,
+    val imgHash: String?,
     val seconds: Int,
     val parentRecipeId: String,
 )

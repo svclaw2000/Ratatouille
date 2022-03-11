@@ -16,32 +16,32 @@ internal class SaveRecipeTempUseCase @Inject constructor(
 
     override suspend fun invoke(request: SaveRecipeTempRequest): Result<Unit> {
         val recipe = request.recipe
-        val imgPathList = listOf(recipe.imgPath) + recipe.stepList.map { it.imgPath }
+        val imgHashList = listOf(recipe.imgHash) + recipe.stepList.map { it.imgHash }
 
-        val imgInfoList = imgPathList.filterNotNull()
-            .map { path ->
-                ImageInfo(path, idGenerator.generateId())
+        val imgInfoList = imgHashList.filterNotNull()
+            .map { hash ->
+                ImageInfo(hash, idGenerator.generateId())
             }
 
-        return copyImageToInternal(imgInfoList).flatMap { copiedImgPathList ->
+        return copyImageToInternal(imgInfoList).flatMap { copiedImgHashList ->
             var i = 0
-            val totalImgList = imgPathList.map { path ->
-                path?.let { copiedImgPathList[i++] }
+            val totalImgList = imgHashList.map { path ->
+                path?.let { copiedImgHashList[i++] }
             }
 
             val stepList = recipe.stepList.mapIndexed { idx, step ->
                 if (step.stepId.isEmpty()) step.copy(
                     stepId = idGenerator.generateId(),
-                    imgPath = totalImgList[idx + 1]
+                    imgHash = totalImgList[idx + 1]
                 )
                 else step.copy(
-                    imgPath = totalImgList[idx + 1]
+                    imgHash = totalImgList[idx + 1]
                 )
             }
 
             tempRepository.saveRecipeTemp(
                 recipe.copy(
-                    imgPath = totalImgList.first(),
+                    imgHash = totalImgList.first(),
                     stepList = stepList
                 )
             )

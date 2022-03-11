@@ -9,7 +9,7 @@ internal fun RecipeStepDto.toDomain() =
         name,
         type,
         description,
-        imgPath,
+        imgHash,
         seconds
     )
 
@@ -20,7 +20,7 @@ internal fun RecipeStep.toDto(recipeMetaID: String, order: Int): RecipeStepDto =
         order,
         type,
         description,
-        imgPath,
+        imgHash,
         seconds,
         recipeMetaID
     )

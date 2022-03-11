@@ -8,7 +8,7 @@ internal fun Recipe.toTempDto(): RecipeTempMetaDto =
         recipeId,
         title,
         stuff,
-        imgPath,
+        imgHash,
         authorId,
         isFavorite,
         createTime,

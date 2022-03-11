@@ -14,16 +14,16 @@ internal class FetchRecipeTempUseCase @Inject constructor(
     override suspend fun invoke(request: FetchRecipeTempRequest): Result<Recipe?> {
         return tempRepository.getRecipeTemp(request.recipeId).map { recipe ->
             recipe?.let {
-                val imgPath = if (
-                    recipe.imgPath != null &&
-                    imageRepository.isUriExists(recipe.imgPath)
-                ) recipe.imgPath else null
+                val imgHash = if (
+                    recipe.imgHash != null &&
+                    imageRepository.isUriExists(recipe.imgHash)
+                ) recipe.imgHash else null
 
                 val stepList = recipe.stepList.map { step ->
-                    if (step.imgPath != null && imageRepository.isUriExists(step.imgPath)) step
-                    else step.copy(imgPath = null)
+                    if (step.imgHash != null && imageRepository.isUriExists(step.imgHash)) step
+                    else step.copy(imgHash = null)
                 }
-                recipe.copy(imgPath = imgPath, stepList = stepList)
+                recipe.copy(imgHash = imgHash, stepList = stepList)
             }
         }
     }

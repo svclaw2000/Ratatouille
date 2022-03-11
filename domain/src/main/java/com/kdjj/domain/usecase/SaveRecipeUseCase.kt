@@ -19,23 +19,23 @@ internal class SaveRecipeUseCase @Inject constructor(
 
     override suspend fun invoke(request: SaveRecipeRequest): Result<Unit> {
         val recipe = request.recipe
-        val imgPathList = listOf(recipe.imgPath) + recipe.stepList.map { step -> step.imgPath }
+        val imgHashList = listOf(recipe.imgHash) + recipe.stepList.map { step -> step.imgHash }
 
-        val imgInfoList = imgPathList.filterNotNull()
-            .map { path ->
-                ImageInfo(path, idGenerator.generateId())
+        val imgInfoList = imgHashList.filterNotNull()
+            .map { hash ->
+                ImageInfo(hash, idGenerator.generateId())
             }
 
-        return copyImageToInternal(imgInfoList).flatMap { changedImgPathList ->
+        return copyImageToInternal(imgInfoList).flatMap { changedImgHashList ->
             var i = 0
-            val totalImgList = imgPathList.map { path ->
-                path?.let { changedImgPathList[i++] }
+            val totalImgList = imgHashList.map { path ->
+                path?.let { changedImgHashList[i++] }
             }
 
             val stepList = recipe.stepList.mapIndexed { idx, step ->
                 step.copy(
                     stepId = if (step.stepId.isBlank() || recipe.state == RecipeState.NETWORK) idGenerator.generateId() else step.stepId,
-                    imgPath = totalImgList[idx + 1]
+                    imgHash = totalImgList[idx + 1]
                 )
             }
 
@@ -43,7 +43,7 @@ internal class SaveRecipeUseCase @Inject constructor(
                 RecipeState.CREATE -> recipeRepository.saveMyRecipe(
                     recipe.copy(
                         recipeId = idGenerator.generateId(),
-                        imgPath = totalImgList.first(),
+                        imgHash = totalImgList.first(),
                         stepList = stepList,
                         createTime = System.currentTimeMillis(),
                         state = RecipeState.LOCAL,
@@ -55,13 +55,13 @@ internal class SaveRecipeUseCase @Inject constructor(
                         .flatMap { originRecipe ->
                             recipeRepository.updateMyRecipe(
                                 recipe.copy(
-                                    imgPath = totalImgList.first(),
+                                    imgHash = totalImgList.first(),
                                     stepList = stepList,
                                     createTime = System.currentTimeMillis()
                                 ),
                                 originRecipe.stepList
-                                    .map { it.imgPath }
-                                    .plus(originRecipe.imgPath)
+                                    .map { it.imgHash }
+                                    .plus(originRecipe.imgHash)
                                     .filterNotNull()
                             )
                         }
@@ -69,7 +69,7 @@ internal class SaveRecipeUseCase @Inject constructor(
                 RecipeState.NETWORK -> recipeRepository.saveMyRecipe(
                     recipe.copy(
                         recipeId = idGenerator.generateId(),
-                        imgPath = totalImgList.first(),
+                        imgHash = totalImgList.first(),
                         stepList = stepList,
                         createTime = System.currentTimeMillis(),
                         state = RecipeState.DOWNLOAD
@@ -83,7 +83,7 @@ internal class SaveRecipeUseCase @Inject constructor(
         when {
             imgInfoList.isEmpty() ->
                 Result.success(listOf())
-            imgInfoList.first().uri.startsWith("https://") || imgInfoList.first().uri.startsWith("gs://") ->
+            imgInfoList.first().hash.startsWith("https://") || imgInfoList.first().hash.startsWith("gs://") ->
                 imageRepository.copyRemoteImageToInternal(imgInfoList)
             else ->
                 imageRepository.copyExternalImageToInternal(imgInfoList)

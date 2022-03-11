@@ -55,9 +55,9 @@
                 android:layout_marginTop="@dimen/editor_stepImage_marginTop"
                 android:contentDescription="@string/stepImage"
                 android:onClick="@{() -> editorViewModel.startSelectImage(dto)}"
-                android:scaleType="@{dto.imgPathFlow.empty ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP }"
+                android:scaleType="@{dto.imgHashFlow == null ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP }"
                 tools:src="@drawable/bg_editor_input_field"
-                app:loadImage="@{dto.imgPathFlow}"
+                app:loadImage="@{dto.imgHashFlow}"
                 app:layout_constraintTop_toBottomOf="@id/editText_editor_stepTitle"
                 app:layout_constraintStart_toStartOf="parent" />
 

@@ -134,7 +134,10 @@ internal class OthersViewModel @Inject constructor(
                 }
                 is CancellationException -> {
                 }
-                else -> _eventOthersRecipe.value = Event(OtherRecipeEvent.ShowSnackBar(ResponseError.UNKNOWN))
+                else -> {
+                    _eventOthersRecipe.value = Event(OtherRecipeEvent.ShowSnackBar(ResponseError.UNKNOWN))
+                    it.printStackTrace()
+                }
 
             }
         }

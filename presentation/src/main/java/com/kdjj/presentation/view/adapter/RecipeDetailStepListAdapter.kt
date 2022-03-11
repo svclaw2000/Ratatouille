@@ -21,7 +21,7 @@ internal class RecipeDetailStepListAdapter(
             oldItem.name == newItem.name &&
                     oldItem.description == newItem.description &&
                     oldItem.seconds == newItem.seconds &&
-                    oldItem.imgPath == newItem.imgPath
+                    oldItem.imgHash == newItem.imgHash
     }
 ) {
 

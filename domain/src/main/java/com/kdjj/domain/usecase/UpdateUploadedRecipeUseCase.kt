@@ -15,7 +15,7 @@ internal class UpdateUploadedRecipeUseCase @Inject constructor(
 
     override suspend fun invoke(request: UpdateUploadedRecipeRequest): Result<Unit> {
         return recipeRepository.getLocalRecipe(request.recipeId).flatMap { recipe ->
-            (listOf(recipe.imgPath) + recipe.stepList.map { it.imgPath }).map {
+            (listOf(recipe.imgHash) + recipe.stepList.map { it.imgHash }).map {
                 coroutineScope {
                     async {
                         convertImageToRemote(it)
@@ -23,19 +23,19 @@ internal class UpdateUploadedRecipeUseCase @Inject constructor(
                 }
             }.fold(Result.success(listOf<String?>())) { acc, deferred ->
                 acc.flatMap { imgList ->
-                    deferred.await().flatMap { imgPath ->
-                        Result.success(imgList + imgPath)
+                    deferred.await().flatMap { imgHash ->
+                        Result.success(imgList + imgHash)
                     }
                 }
             }.flatMap { imgList ->
                 val recipeStepList = recipe.stepList.mapIndexed { idx, step ->
                     step.copy(
-                        imgPath = imgList[idx + 1]
+                        imgHash = imgList[idx + 1]
                     )
                 }
                 recipeRepository.uploadRecipe(
                     recipe.copy(
-                        imgPath = imgList.first(),
+                        imgHash = imgList.first(),
                         stepList = recipeStepList,
                         createTime = System.currentTimeMillis()
                     )
@@ -44,9 +44,9 @@ internal class UpdateUploadedRecipeUseCase @Inject constructor(
         }
     }
 
-    private suspend fun convertImageToRemote(imgPath: String?): Result<String?> {
+    private suspend fun convertImageToRemote(imgHash: String?): Result<String?> {
         return recipeImageRepository.convertInternalUriToRemoteStorageUri(
-            imgPath ?: return Result.success(null)
+            imgHash ?: return Result.success(null)
         )
     }
 }

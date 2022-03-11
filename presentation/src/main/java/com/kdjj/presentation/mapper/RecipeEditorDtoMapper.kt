@@ -1,6 +1,9 @@
 package com.kdjj.presentation.mapper
 
-import com.kdjj.domain.model.*
+import com.kdjj.domain.model.Recipe
+import com.kdjj.domain.model.RecipeStep
+import com.kdjj.domain.model.RecipeStepType
+import com.kdjj.domain.model.RecipeType
 import com.kdjj.domain.model.request.ValidateRecipeFlowRequest
 import com.kdjj.domain.model.request.ValidateRecipeStepFlowRequest
 import com.kdjj.domain.model.response.ValidateRecipeFlowResponse
@@ -31,7 +34,7 @@ internal fun Recipe.toEditorDto(
         titleFlow = titleFlow,
         typeIntFlow = MutableStateFlow(recipeTypeList.indexOfFirst { it.id == type.id }),
         stuffFlow = stuffFlow,
-        imgPathFlow = MutableStateFlow(imgPath),
+        imgHashFlow = MutableStateFlow(imgHash),
 
         titleValidFlow = response.titleFlow.stateIn(
             scope = scope,
@@ -64,7 +67,7 @@ internal fun RecipeStep.toEditorDto(
 
     return RecipeEditorDto.RecipeStepDto(
         nameFlow = nameFlow,
-        imgPathFlow = MutableStateFlow(imgPath),
+        imgHashFlow = MutableStateFlow(imgHash),
         typeIntFlow = MutableStateFlow(type.ordinal),
         descriptionFlow = descriptionFlow,
         minutesFlow = MutableStateFlow(seconds / 60),
@@ -93,7 +96,7 @@ internal fun RecipeEditorDto.RecipeMetaDto.toDomain(
     title = titleFlow.value,
     type = recipeTypeList[typeIntFlow.value],
     stuff = stuffFlow.value,
-    imgPath = imgPathFlow.value,
+    imgHash = imgHashFlow.value,
     stepList = stepDtoList.map { it.toDomain() },
     authorId = authorId,
     viewCount = viewCount,
@@ -107,6 +110,6 @@ internal fun RecipeEditorDto.RecipeStepDto.toDomain() = RecipeStep(
     name = nameFlow.value,
     type = RecipeStepType.values()[typeIntFlow.value],
     description = descriptionFlow.value,
-    imgPath = imgPathFlow.value,
+    imgHash = imgHashFlow.value,
     seconds = calculateSeconds(minutesFlow.value, secondsFlow.value)
 )

@@ -125,7 +125,7 @@ internal class RecipeEditorViewModel @Inject constructor(
             if (
                 recipeMetaDto.titleFlow.value != oldRecipe.title ||
                 recipeMetaDto.stuffFlow.value != oldRecipe.stuff ||
-                recipeMetaDto.imgPathFlow.value != oldRecipe.imgPath ||
+                recipeMetaDto.imgHashFlow.value != oldRecipe.imgHash ||
                 recipeMetaDto.typeIntFlow.value != liveRecipeTypes.value?.indexOf(oldRecipe.type)
             ) {
                 return false
@@ -140,7 +140,7 @@ internal class RecipeEditorViewModel @Inject constructor(
                     if (
                         model.nameFlow.value != oldRecipe.stepList[idx].name ||
                         model.descriptionFlow.value != oldRecipe.stepList[idx].description ||
-                        model.imgPathFlow.value != oldRecipe.stepList[idx].imgPath ||
+                        model.imgHashFlow.value != oldRecipe.stepList[idx].imgHash ||
                         model.minutesFlow.value != oldRecipe.stepList[idx].seconds / 60 ||
                         model.secondsFlow.value != oldRecipe.stepList[idx].seconds % 60 ||
                         model.typeIntFlow.value != oldRecipe.stepList[idx].type.ordinal
@@ -154,7 +154,7 @@ internal class RecipeEditorViewModel @Inject constructor(
             if (
                 recipeMetaDto.titleFlow.value.isNotEmpty() ||
                 recipeMetaDto.stuffFlow.value.isNotEmpty() ||
-                recipeMetaDto.imgPathFlow.value != null ||
+                recipeMetaDto.imgHashFlow.value != null ||
                 recipeMetaDto.typeIntFlow.value != 0
             ) {
                 return false
@@ -164,7 +164,7 @@ internal class RecipeEditorViewModel @Inject constructor(
                 if (
                     model.nameFlow.value.isNotEmpty() ||
                     model.descriptionFlow.value.isNotEmpty() ||
-                    model.imgPathFlow.value != null ||
+                    model.imgHashFlow.value != null ||
                     model.minutesFlow.value != 0 ||
                     model.secondsFlow.value != 0 ||
                     model.typeIntFlow.value != 0
@@ -326,9 +326,9 @@ internal class RecipeEditorViewModel @Inject constructor(
         liveImgTarget.value?.let { model ->
             when (model) {
                 is RecipeEditorDto.RecipeMetaDto ->
-                    model.imgPathFlow.value = uri
+                    model.imgHashFlow.value = uri
                 is RecipeEditorDto.RecipeStepDto ->
-                    model.imgPathFlow.value = uri
+                    model.imgHashFlow.value = uri
             }
             doEdit()
         }
@@ -342,8 +342,8 @@ internal class RecipeEditorViewModel @Inject constructor(
     fun setImageEmpty() {
         liveImgTarget.value?.let { model ->
             when (model) {
-                is RecipeEditorDto.RecipeMetaDto -> model.imgPathFlow.value = ""
-                is RecipeEditorDto.RecipeStepDto -> model.imgPathFlow.value = ""
+                is RecipeEditorDto.RecipeMetaDto -> model.imgHashFlow.value = ""
+                is RecipeEditorDto.RecipeStepDto -> model.imgHashFlow.value = ""
             }
         }
         _liveImgTarget.value = null

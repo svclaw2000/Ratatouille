@@ -25,8 +25,8 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
                 recipeDatabase.withTransaction {
                     uselessImageDao.deleteUselessImage(
                         recipe.stepList
-                            .map { it.imgPath }
-                            .plus(recipe.imgPath)
+                            .map { it.imgHash }
+                            .plus(recipe.imgHash)
                             .filterNotNull()
                     )
 
@@ -64,8 +64,8 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
             ?.let { temp ->
                 uselessImageDao.insertUselessImage(
                     temp.stepList
-                        .map { it.imgPath }
-                        .plus(temp.imgPath)
+                        .map { it.imgHash }
+                        .plus(temp.imgHash)
                         .filterNotNull()
                         .map { UselessImageDto(it) }
                 )
