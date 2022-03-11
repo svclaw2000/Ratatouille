@@ -1,5 +1,6 @@
 package com.kdjj.local.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.kdjj.local.dao.*
@@ -14,7 +15,8 @@ import com.kdjj.local.dto.*
         RecipeTempMetaDto::class,
         RecipeTempStepDto::class
     ],
-    version = 1
+    version = 2,
+    autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 internal abstract class RecipeDatabase : RoomDatabase() {
 
