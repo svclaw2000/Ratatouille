@@ -56,8 +56,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:contentDescription="@string/addRecipeButton"
-                    android:scaleType="@{myRecipeItem.recipe.imgHash == null ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP}"
-                    app:loadImage="@{myRecipeItem.recipe.imgHash}" />
+                    android:scaleType="@{myRecipeItem.imgPath == null ? ImageView.ScaleType.CENTER : ImageView.ScaleType.CENTER_CROP}"
+                    app:loadImage="@{myRecipeItem.imgPath}" />
 
                 <TextView
                     android:layout_width="match_parent"

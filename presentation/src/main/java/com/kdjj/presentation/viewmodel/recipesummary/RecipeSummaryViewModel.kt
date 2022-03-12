@@ -1,9 +1,6 @@
 package com.kdjj.presentation.viewmodel.recipesummary
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kdjj.domain.common.AuthorIdProvider
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
@@ -12,6 +9,7 @@ import com.kdjj.domain.model.request.*
 import com.kdjj.domain.usecase.FlowUseCase
 import com.kdjj.domain.usecase.ResultUseCase
 import com.kdjj.presentation.common.Event
+import com.kdjj.presentation.common.FILE_PATH
 import com.kdjj.presentation.common.extensions.throttleFirst
 import com.kdjj.presentation.model.RecipeSummaryType
 import com.kdjj.presentation.model.UpdateFavoriteResult
@@ -38,6 +36,15 @@ internal class RecipeSummaryViewModel @Inject constructor(
 
     private val _liveRecipe = MutableLiveData<Recipe>()
     val liveRecipe: LiveData<Recipe> = _liveRecipe
+
+    val liveImgPath: LiveData<String?> = liveRecipe.map { recipe ->
+        recipe.imgHash?.let {
+            when (recipe.state) {
+                RecipeState.NETWORK -> "https://firebasestorage.googleapis.com/v0/b/ratatouille-e3c15.appspot.com/o/images%2F${it}.png?alt=media"
+                else -> "${FILE_PATH}/${it}.png"
+            }
+        }
+    }
 
     private val _liveLoading = MutableLiveData(false)
     val liveLoading: LiveData<Boolean> get() = _liveLoading

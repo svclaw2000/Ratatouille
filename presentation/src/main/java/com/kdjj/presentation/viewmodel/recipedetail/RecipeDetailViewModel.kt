@@ -27,7 +27,7 @@ internal class RecipeDetailViewModel @Inject constructor(
     val liveStepList: LiveData<List<RecipeStep>> get() = _liveStepList
     val liveModelList = liveStepList.map { stepList ->
         stepList.map { step ->
-            StepTimerModel(step, notifications) {
+            StepTimerModel(step, notifications, isNetwork) {
                 ringtone.play()
                 _liveTimerList.value?.indexOf(it)?.let { idx ->
                     _eventRecipeDetail.value = Event(RecipeDetailEvent.MoveToTimer(idx))
@@ -36,6 +36,8 @@ internal class RecipeDetailViewModel @Inject constructor(
             }
         }
     }
+
+    private var isNetwork: Boolean = false
 
     private val _liveTimerList = MutableLiveData<List<StepTimerModel>>(listOf())
     val liveTimerList: LiveData<List<StepTimerModel>> get() = _liveTimerList
@@ -77,8 +79,10 @@ internal class RecipeDetailViewModel @Inject constructor(
         _liveLoading.value = true
         viewModelScope.launch {
             when (state) {
-                RecipeState.NETWORK ->
+                RecipeState.NETWORK -> {
+                    isNetwork = true
                     fetchOthersRecipeUseCase(FetchOthersRecipeRequest(recipeId))
+                }
                 RecipeState.LOCAL, RecipeState.DOWNLOAD, RecipeState.UPLOAD, RecipeState.CREATE ->
                     getMyRecipeUseCase(GetMyRecipeRequest(recipeId))
             }.onSuccess { recipe ->

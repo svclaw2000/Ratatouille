@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kdjj.domain.model.RecipeStep
 import com.kdjj.presentation.common.Event
+import com.kdjj.presentation.common.FILE_PATH
 import com.kdjj.presentation.common.Notifications
 
 internal class StepTimerModel (
     val recipeStep: RecipeStep,
     private val notifications: Notifications,
+    private val isNetwork: Boolean,
     private val onFinishListener: (StepTimerModel) -> Unit
 ) {
     private var leftMillis = recipeStep.seconds * 1000L
@@ -29,6 +31,11 @@ internal class StepTimerModel (
     val eventAnimation: LiveData<Event<Unit>> get() = _eventAnimation
 
     private var isRunningOnBackground = false
+
+    val imgPath = recipeStep.imgHash?.let {
+        if (isNetwork) "https://firebasestorage.googleapis.com/v0/b/ratatouille-e3c15.appspot.com/o/images%2F${it}.png?alt=media"
+        else "${FILE_PATH}/${it}.png"
+    }
 
     fun reset() {
         timer.cancel()

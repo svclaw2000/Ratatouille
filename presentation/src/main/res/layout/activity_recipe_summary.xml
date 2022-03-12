@@ -74,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/recipeImage"
                         android:scaleType="centerCrop"
-                        app:loadImage="@{viewModel.liveRecipe.imgHash}"
+                        app:loadImage="@{viewModel.liveImgPath}"
                         tools:src="@drawable/ic_baseline_fastfood_24" />
                 </androidx.cardview.widget.CardView>
 

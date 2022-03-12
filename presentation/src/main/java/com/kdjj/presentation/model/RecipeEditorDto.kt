@@ -6,11 +6,9 @@ import com.kdjj.domain.model.request.ValidateRecipeStepFlowRequest
 import com.kdjj.domain.model.response.ValidateRecipeFlowResponse
 import com.kdjj.domain.model.response.ValidateRecipeStepFlowResponse
 import com.kdjj.domain.usecase.UseCase
+import com.kdjj.presentation.common.FILE_PATH
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 
 internal sealed class RecipeEditorDto {
 
@@ -29,6 +27,8 @@ internal sealed class RecipeEditorDto {
         val isFavorite: Boolean = false,
         val state: RecipeState
     ) : RecipeEditorDto() {
+
+        val imgPathFlow = imgHashFlow.map { hash -> hash?.let { "${FILE_PATH}/${hash}.png" } }
 
         companion object {
 
@@ -82,6 +82,8 @@ internal sealed class RecipeEditorDto {
 
         val stepId: String
     ) : RecipeEditorDto() {
+
+        val imgPathFlow = imgHashFlow.map { hash -> hash?.let { "${FILE_PATH}/${hash}.png" } }
 
         companion object {
 
