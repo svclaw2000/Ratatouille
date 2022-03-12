@@ -15,7 +15,7 @@ import com.kdjj.local.dto.*
         RecipeTempMetaDto::class,
         RecipeTempStepDto::class
     ],
-    version = 2,
+    version = 3,
     autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 internal abstract class RecipeDatabase : RoomDatabase() {

@@ -10,7 +10,7 @@ internal fun RecipeDto.toDomain(): Recipe =
         title,
         type.toDomain(),
         stuff,
-        imgPath,
+        if (imgPath.isNullOrEmpty()) null else imgPath,
         stepList.map { it.toDomain() },
         authorId,
         viewCount,
