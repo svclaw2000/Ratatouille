@@ -15,7 +15,7 @@ internal interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipeStep(recipeStep: RecipeStepDto)
     
-    @Query("DELETE FROM RecipeStep WHERE parentRecipeId = :recipeId")
+    @Query("DELETE FROM RecipeStep WHERE parentRecipeId = :recipeId AND isTemp = 0")
     suspend fun deleteStepList(recipeId: String)
     
     @Delete
@@ -24,9 +24,18 @@ internal interface RecipeDao {
     @Update
     suspend fun updateRecipeMeta(recipeMeta: RecipeMetaDto)
     
-    @Query("SELECT * FROM RecipeMeta WHERE recipeMetaId = :recipeId")
+    @Query("SELECT * FROM RecipeMeta WHERE recipeMetaId = :recipeId AND isTemp = 0")
     fun getRecipe(recipeId: String): Flow<RecipeDto>
 
-    @Query("SELECT * FROM RecipeMeta WHERE recipeMetaId = :recipeId")
-    fun getRecipeDto(recipeId: String): RecipeDto?
+    @Query("SELECT * FROM RecipeMeta WHERE recipeMetaId = :recipeId AND isTemp = 0")
+    suspend fun getRecipeDto(recipeId: String): RecipeDto?
+
+    @Query("SELECT * FROM RecipeMeta WHERE recipeMetaId = :recipeId AND isTemp = 1")
+    suspend fun getRecipeTemp(recipeId: String): RecipeDto?
+
+    @Query("DELETE FROM RecipeMeta WHERE recipeMetaId = :recipeId AND isTemp = 1")
+    suspend fun deleteRecipeTemp(recipeId: String)
+
+    @Query("DELETE FROM RecipeStep WHERE parentRecipeId = :recipeId AND isTemp = 1")
+    suspend fun deleteTempStepList(recipeId: String)
 }

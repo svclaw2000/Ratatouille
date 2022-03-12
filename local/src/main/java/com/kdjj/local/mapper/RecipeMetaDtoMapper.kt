@@ -3,15 +3,16 @@ package com.kdjj.local.mapper
 import com.kdjj.domain.model.Recipe
 import com.kdjj.local.dto.RecipeMetaDto
 
-internal fun Recipe.toDto(): RecipeMetaDto =
+internal fun Recipe.toDto(isTemp: Boolean): RecipeMetaDto =
     RecipeMetaDto(
-        recipeId,
-        title,
-        stuff,
-        imgPath,
-        authorId,
-        isFavorite,
-        createTime,
-        state,
-        type.id.toLong()
+        recipeMetaId = recipeId,
+        title = title,
+        stuff = stuff,
+        imgPath = imgPath,
+        authorId = authorId,
+        isFavorite = isFavorite,
+        createTime = createTime,
+        state = state,
+        recipeTypeId = type.id.toLong(),
+        isTemp = isTemp
     )

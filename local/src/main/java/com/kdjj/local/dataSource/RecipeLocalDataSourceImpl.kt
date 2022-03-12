@@ -35,9 +35,9 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                             .filterNotNull()
                     )
                     recipeDao.deleteStepList(recipe.recipeId)
-                    recipeDao.insertRecipeMeta(recipe.toDto())
+                    recipeDao.insertRecipeMeta(recipe.toDto(isTemp = false))
                     recipe.stepList.forEachIndexed { idx, recipeStep ->
-                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1))
+                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1, isTemp = false))
                     }
                 }
             }
@@ -48,7 +48,7 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
     ): Result<Unit> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeDao.updateRecipeMeta(recipe.toDto())
+                recipeDao.updateRecipeMeta(recipe.toDto(isTemp = false))
             }
         }
 
@@ -70,9 +70,9 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                             .map { UselessImageDto(it) }
                     )
                     recipeDao.deleteStepList(recipe.recipeId)
-                    recipeDao.insertRecipeMeta(recipe.toDto())
+                    recipeDao.insertRecipeMeta(recipe.toDto(isTemp = false))
                     recipe.stepList.forEachIndexed { idx, recipeStep ->
-                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1))
+                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1, isTemp = false))
                     }
                 }
             }
@@ -91,7 +91,7 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                             .filterNotNull()
                             .map { UselessImageDto(it) }
                     )
-                    recipeDao.deleteRecipe(recipe.toDto())
+                    recipeDao.deleteRecipe(recipe.toDto(isTemp = false))
                 }
             }
         }

@@ -3,18 +3,18 @@ package com.kdjj.local.dataSource
 import androidx.room.withTransaction
 import com.kdjj.data.datasource.RecipeTempLocalDataSource
 import com.kdjj.domain.model.Recipe
-import com.kdjj.local.dao.RecipeTempDao
+import com.kdjj.local.dao.RecipeDao
 import com.kdjj.local.dao.UselessImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.UselessImageDto
 import com.kdjj.local.mapper.toDomain
-import com.kdjj.local.mapper.toTempDto
+import com.kdjj.local.mapper.toDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class RecipeTempLocalDataSourceImpl @Inject constructor(
-    private val recipeTempDao: RecipeTempDao,
+    private val recipeDao: RecipeDao,
     private val recipeDatabase: RecipeDatabase,
     private val uselessImageDao: UselessImageDao
 ) : RecipeTempLocalDataSource {
@@ -32,10 +32,14 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
 
                     removeImageByRecipeId(recipe.recipeId)
 
-                    recipeTempDao.deleteTempStepList(recipe.recipeId)
-                    recipeTempDao.insertRecipeTempMeta(recipe.toTempDto())
+                    recipeDao.deleteTempStepList(recipe.recipeId)
+                    recipeDao.insertRecipeMeta(recipe.toDto(isTemp = true))
                     recipe.stepList.forEachIndexed { index, recipeStep ->
-                        recipeTempDao.insertRecipeTempStep(recipeStep.toTempDto(recipe.recipeId, index + 1))
+                        recipeDao.insertRecipeStep(recipeStep.toDto(
+                            recipeMetaID = recipe.recipeId,
+                            order = index + 1,
+                            isTemp = true
+                        ))
                     }
                 }
             }
@@ -46,7 +50,7 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
             runCatching {
                 recipeDatabase.withTransaction {
                     removeImageByRecipeId(recipeId)
-                    recipeTempDao.deleteRecipeTemp(recipeId)
+                    recipeDao.deleteRecipeTemp(recipeId)
                 }
             }
         }
@@ -54,12 +58,12 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
     override suspend fun getRecipeTemp(recipeId: String): Result<Recipe?> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeTempDao.getRecipeTemp(recipeId)?.toDomain()
+                recipeDao.getRecipeTemp(recipeId)?.toDomain()
             }
         }
 
     private suspend fun removeImageByRecipeId(recipeId: String) {
-        recipeTempDao.getRecipeTemp(recipeId)
+        recipeDao.getRecipeTemp(recipeId)
             ?.toDomain()
             ?.let { temp ->
                 uselessImageDao.insertUselessImage(

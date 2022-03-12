@@ -1,8 +1,8 @@
 package com.kdjj.local.dto
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import com.kdjj.domain.model.RecipeState
 
 @Entity(
@@ -14,10 +14,10 @@ import com.kdjj.domain.model.RecipeState
             childColumns = arrayOf("recipeTypeId"),
             onDelete = ForeignKey.RESTRICT
         )
-    ]
+    ],
+    primaryKeys = ["recipeMetaId", "isTemp"]
 )
 internal data class RecipeMetaDto(
-    @PrimaryKey
     val recipeMetaId: String,
     val title: String,
     val stuff: String,
@@ -26,5 +26,7 @@ internal data class RecipeMetaDto(
     val isFavorite: Boolean,
     val createTime: Long,
     val state: RecipeState,
-    val recipeTypeId: Long
+    val recipeTypeId: Long,
+    @ColumnInfo(defaultValue = "0")
+    val isTemp: Boolean
 )
