@@ -24,6 +24,7 @@ internal abstract class RecipeDatabase : RoomDatabase() {
     internal abstract fun getRecipeListDao(): RecipeListDao
     internal abstract fun getRecipeTypeDao(): RecipeTypeDao
     internal abstract fun getUselessImageDao(): UselessImageDao
+    internal abstract fun getImageDao(): UselessImageDao
 
     companion object {
 
