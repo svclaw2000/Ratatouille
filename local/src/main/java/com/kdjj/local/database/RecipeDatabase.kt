@@ -4,13 +4,10 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.kdjj.local.dao.RecipeDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.dao.RecipeListDao
 import com.kdjj.local.dao.RecipeTypeDao
-import com.kdjj.local.dao.UselessImageDao
-import com.kdjj.local.dto.RecipeMetaDto
-import com.kdjj.local.dto.RecipeStepDto
-import com.kdjj.local.dto.RecipeTypeDto
-import com.kdjj.local.dto.UselessImageDto
+import com.kdjj.local.dto.*
 
 @Database(
     entities = [
@@ -19,9 +16,13 @@ import com.kdjj.local.dto.UselessImageDto
         RecipeStepDto::class,
         UselessImageDto::class
     ],
-    version = 4,
+    views = [
+        RecipeImageViewDto::class
+    ],
+    version = 5,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 4, to = 5)
     ]
 )
 internal abstract class RecipeDatabase : RoomDatabase() {
@@ -29,7 +30,7 @@ internal abstract class RecipeDatabase : RoomDatabase() {
     internal abstract fun getRecipeDao(): RecipeDao
     internal abstract fun getRecipeListDao(): RecipeListDao
     internal abstract fun getRecipeTypeDao(): RecipeTypeDao
-    internal abstract fun getUselessImageDao(): UselessImageDao
+    internal abstract fun getUselessImageDao(): RecipeImageDao
 
     companion object {
 
