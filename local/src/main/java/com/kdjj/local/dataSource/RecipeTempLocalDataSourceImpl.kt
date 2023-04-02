@@ -23,14 +23,13 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
+                    removeTempImageByRecipeId(recipe.recipeId)
                     recipeImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
                             .plus(recipe.imgPath)
                             .filterNotNull()
                     )
-
-                    removeImageByRecipeId(recipe.recipeId)
 
                     recipeDao.deleteTempStepList(recipe.recipeId)
                     recipeDao.insertRecipeMeta(recipe.toDto(isTemp = true))
@@ -49,7 +48,7 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    removeImageByRecipeId(recipeId)
+                    removeTempImageByRecipeId(recipeId, exceptReal = true)
                     recipeDao.deleteRecipeTemp(recipeId)
                 }
             }
@@ -62,7 +61,7 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
             }
         }
 
-    private suspend fun removeImageByRecipeId(recipeId: String) {
+    private suspend fun removeTempImageByRecipeId(recipeId: String, exceptReal: Boolean = false) {
         recipeDao.getRecipeDto(recipeId, isTemp = true)
             ?.toDomain()
             ?.let { temp ->
@@ -73,6 +72,14 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
                         .filterNotNull()
                         .map { UselessImageDto(it) }
                 )
+                if (exceptReal) {
+                    recipeDao.getRecipeDto(recipeId, isTemp = false)
+                        ?.toDomain()
+                        ?.let { recipe ->
+                            val imgPathList = recipe.stepList.map { it.imgPath } + recipe.imgPath
+                            recipeImageDao.deleteUselessImage(imgPathList.filterNotNull())
+                        }
+                }
             }
     }
 }
