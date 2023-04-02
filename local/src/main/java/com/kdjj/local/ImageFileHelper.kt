@@ -7,7 +7,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.dto.UselessImageDto
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import javax.inject.Inject
 internal class ImageFileHelper @Inject constructor(
     private val fileDir: File,
     private val contentResolver: ContentResolver,
-    private val uselessImageDao: UselessImageDao
+    private val recipeImageDao: RecipeImageDao
 ) {
 
     suspend fun convertToByteArray(
@@ -64,7 +64,7 @@ internal class ImageFileHelper @Inject constructor(
                     async {
                         var fos: FileOutputStream? = null
                         val filePath = "$fileDir/${fileNameList[i]}.png"
-                        uselessImageDao.insertUselessImage(UselessImageDto(filePath))
+                        recipeImageDao.insertUselessImage(UselessImageDto(filePath))
                         fos = FileOutputStream(filePath)
                         val bitmap = convertByteArrayToBitmap(byteArrayList[i], degreeList[i])
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
@@ -79,7 +79,7 @@ internal class ImageFileHelper @Inject constructor(
     fun isUriExists(uri: String): Boolean =
         try {
             val changedUri = if (!uri.contains("://")) "file://${uri}" else uri
-            contentResolver.openInputStream(Uri.parse(changedUri))
+            contentResolver.openInputStream(Uri.parse(changedUri))?.close()
             true
         } catch (e: Exception) {
             false

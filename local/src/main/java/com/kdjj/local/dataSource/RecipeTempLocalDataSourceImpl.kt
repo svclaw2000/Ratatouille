@@ -4,7 +4,7 @@ import androidx.room.withTransaction
 import com.kdjj.data.datasource.RecipeTempLocalDataSource
 import com.kdjj.domain.model.Recipe
 import com.kdjj.local.dao.RecipeDao
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.UselessImageDto
 import com.kdjj.local.mapper.toDomain
@@ -16,14 +16,14 @@ import javax.inject.Inject
 internal class RecipeTempLocalDataSourceImpl @Inject constructor(
     private val recipeDao: RecipeDao,
     private val recipeDatabase: RecipeDatabase,
-    private val uselessImageDao: UselessImageDao
+    private val recipeImageDao: RecipeImageDao
 ) : RecipeTempLocalDataSource {
 
     override suspend fun saveRecipeTemp(recipe: Recipe): Result<Unit> =
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.deleteUselessImage(
+                    recipeImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
                             .plus(recipe.imgPath)
@@ -58,15 +58,15 @@ internal class RecipeTempLocalDataSourceImpl @Inject constructor(
     override suspend fun getRecipeTemp(recipeId: String): Result<Recipe?> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeDao.getRecipeTemp(recipeId)?.toDomain()
+                recipeDao.getRecipeDto(recipeId, isTemp = true)?.toDomain()
             }
         }
 
     private suspend fun removeImageByRecipeId(recipeId: String) {
-        recipeDao.getRecipeTemp(recipeId)
+        recipeDao.getRecipeDto(recipeId, isTemp = true)
             ?.toDomain()
             ?.let { temp ->
-                uselessImageDao.insertUselessImage(
+                recipeImageDao.insertUselessImage(
                     temp.stepList
                         .map { it.imgPath }
                         .plus(temp.imgPath)

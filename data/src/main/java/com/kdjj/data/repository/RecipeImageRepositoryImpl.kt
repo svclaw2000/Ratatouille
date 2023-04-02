@@ -1,8 +1,8 @@
 package com.kdjj.data.repository
 
-import com.kdjj.domain.common.flatMap
 import com.kdjj.data.datasource.RecipeImageLocalDataSource
 import com.kdjj.data.datasource.RecipeImageRemoteDataSource
+import com.kdjj.domain.common.flatMap
 import com.kdjj.domain.model.ImageInfo
 import com.kdjj.domain.repository.RecipeImageRepository
 import javax.inject.Inject
@@ -19,9 +19,9 @@ internal class RecipeImageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun copyExternalImageToInternal(
-        imageInfo: List<ImageInfo>
+        imageInfos: List<ImageInfo>
     ): Result<List<String>> {
-        return imageInfo.chunked(10).map { imgInfoList ->
+        return imageInfos.chunked(10).map { imgInfoList ->
             recipeImageLocalDataSource.convertToByteArray(imgInfoList.map { it.uri })
                 .flatMap { byteArrayDegreePairList ->
                     recipeImageLocalDataSource.convertToInternalStorageUri(
@@ -42,9 +42,9 @@ internal class RecipeImageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun copyRemoteImageToInternal(
-        imageInfo: List<ImageInfo>
+        imageInfos: List<ImageInfo>
     ): Result<List<String>> =
-        imageInfo.chunked(10).map { imgInfoList ->
+        imageInfos.chunked(10).map { imgInfoList ->
             recipeImageRemoteDataSource.fetchRecipeImage(imgInfoList.map { it.uri })
                 .flatMap { byteArrayList ->
                     recipeImageLocalDataSource.convertToInternalStorageUri(
@@ -66,4 +66,8 @@ internal class RecipeImageRepositoryImpl @Inject constructor(
     override fun isUriExists(uri: String): Boolean = recipeImageLocalDataSource.isUriExists(uri)
 
     override suspend fun deleteUselessImages(): Result<Unit> = recipeImageLocalDataSource.deleteUselessImages()
+
+    override suspend fun checkImagesAreValid(uris: List<String>): Result<List<Boolean>> {
+        return recipeImageLocalDataSource.checkImagesAreValid(uris)
+    }
 }

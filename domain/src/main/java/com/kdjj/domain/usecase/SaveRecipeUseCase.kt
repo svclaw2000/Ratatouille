@@ -21,15 +21,28 @@ internal class SaveRecipeUseCase @Inject constructor(
         val recipe = request.recipe
         val imgPathList = listOf(recipe.imgPath) + recipe.stepList.map { step -> step.imgPath }
 
-        val imgInfoList = imgPathList.filterNotNull()
-            .map { path ->
-                ImageInfo(path, idGenerator.generateId())
+        val notNullImgPathList = imgPathList.filterNotNull()
+        val imgValidationList = imageRepository.checkImagesAreValid(notNullImgPathList)
+            .getOrElse { List(notNullImgPathList.size) { false } }
+
+        val invalidImgInfoList = notNullImgPathList.zip(imgValidationList)
+            .mapNotNull { (path, isValid) ->
+                if (isValid) null else ImageInfo(path, idGenerator.generateId())
             }
 
-        return copyImageToInternal(imgInfoList).flatMap { changedImgPathList ->
-            var i = 0
+        return copyImageToInternal(invalidImgInfoList).flatMap { copiedImgPathList ->
             val totalImgList = imgPathList.map { path ->
-                path?.let { changedImgPathList[i++] }
+                if (path != null) {
+                    val index = notNullImgPathList.indexOfFirst { it == path }
+                    if (imgValidationList[index]) {
+                        notNullImgPathList[index]
+                    } else {
+                        val invalidImgIndex = invalidImgInfoList.indexOfFirst { it.uri == path }
+                        copiedImgPathList[invalidImgIndex]
+                    }
+                } else {
+                    null
+                }
             }
 
             val stepList = recipe.stepList.mapIndexed { idx, step ->

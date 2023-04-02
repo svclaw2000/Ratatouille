@@ -5,7 +5,7 @@ import com.kdjj.data.datasource.RecipeLocalDataSource
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.exception.NotExistRecipeException
 import com.kdjj.local.dao.RecipeDao
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.UselessImageDto
 import com.kdjj.local.mapper.toDomain
@@ -19,7 +19,7 @@ import javax.inject.Inject
 internal class RecipeLocalDataSourceImpl @Inject constructor(
     private val recipeDatabase: RecipeDatabase,
     private val recipeDao: RecipeDao,
-    private val uselessImageDao: UselessImageDao
+    private val recipeImageDao: RecipeImageDao
 ) : RecipeLocalDataSource {
 
     override suspend fun saveRecipe(
@@ -28,7 +28,7 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.deleteUselessImage(
+                    recipeImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
                             .plus(recipe.imgPath)
@@ -59,15 +59,15 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.deleteUselessImage(
+                    recipeImageDao.insertUselessImage(
+                        originImgPathList.filter { it.isNotBlank() }
+                            .map { UselessImageDto(it) }
+                    )
+                    recipeImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
                             .plus(recipe.imgPath)
                             .filterNotNull(),
-                    )
-                    uselessImageDao.insertUselessImage(
-                        originImgPathList.filter { it.isNotBlank() }
-                            .map { UselessImageDto(it) }
                     )
                     recipeDao.deleteStepList(recipe.recipeId)
                     recipeDao.insertRecipeMeta(recipe.toDto(isTemp = false))
@@ -84,14 +84,14 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.insertUselessImage(
+                    recipeImageDao.insertUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
                             .plus(recipe.imgPath)
                             .filterNotNull()
                             .map { UselessImageDto(it) }
                     )
-                    recipeDao.deleteRecipe(recipe.toDto(isTemp = false))
+                    recipeDao.deleteRecipe(recipe.recipeId)
                 }
             }
         }
@@ -107,7 +107,7 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
     ): Result<Recipe> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeDao.getRecipeDto(recipeId)?.toDomain() ?: throw NotExistRecipeException()
+                recipeDao.getRecipeDto(recipeId, isTemp = false)?.toDomain() ?: throw NotExistRecipeException()
             }
         }
 }

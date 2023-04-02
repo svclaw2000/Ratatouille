@@ -15,4 +15,6 @@ interface RecipeImageLocalDataSource {
     fun isUriExists(uri: String): Boolean
 
     suspend fun deleteUselessImages(): Result<Unit>
+
+    suspend fun checkImagesAreValid(uris: List<String>): Result<List<Boolean>>
 }
