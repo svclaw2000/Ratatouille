@@ -11,8 +11,6 @@ import com.kdjj.local.dto.UselessImageDto
 import com.kdjj.local.mapper.toDomain
 import com.kdjj.local.mapper.toDto
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -95,12 +93,6 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
                 }
             }
         }
-
-    override fun getRecipeFlow(
-        recipeId: String
-    ): Flow<Recipe> =
-        recipeDao.getRecipe(recipeId)
-            .map { it.toDomain() }
 
     override suspend fun getRecipe(
         recipeId: String

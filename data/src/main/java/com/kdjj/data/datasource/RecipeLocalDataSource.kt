@@ -1,7 +1,6 @@
 package com.kdjj.data.datasource
 
 import com.kdjj.domain.model.Recipe
-import kotlinx.coroutines.flow.Flow
 
 interface RecipeLocalDataSource {
 
@@ -16,10 +15,6 @@ interface RecipeLocalDataSource {
     suspend fun deleteRecipe(
         recipe: Recipe
     ): Result<Unit>
-
-    fun getRecipeFlow(
-        recipeId: String
-    ): Flow<Recipe>
 
     suspend fun getRecipe(
         recipeId: String

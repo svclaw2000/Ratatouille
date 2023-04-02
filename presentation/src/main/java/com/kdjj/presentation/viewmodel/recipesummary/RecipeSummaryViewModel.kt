@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class RecipeSummaryViewModel @Inject constructor(
-    private val getMyRecipeFlowUseCase: FlowUseCase<GetMyRecipeRequest, Recipe>,
+    private val getMyRecipeUseCase: ResultUseCase<GetMyRecipeRequest, Recipe>,
     private val updateMyRecipeFavoriteUseCase: ResultUseCase<UpdateMyRecipeFavoriteRequest, Boolean>,
     private val deleteMyRecipeUseCase: ResultUseCase<DeleteMyRecipeRequest, Unit>,
     private val deleteUploadedRecipeUseCase: ResultUseCase<DeleteUploadedRecipeRequest, Unit>,
@@ -33,6 +33,7 @@ internal class RecipeSummaryViewModel @Inject constructor(
     private val uploadRecipeUseCase: ResultUseCase<UploadRecipeRequest, Unit>,
     private val increaseViewCountUseCase: ResultUseCase<IncreaseOthersRecipeViewCountRequest, Unit>,
     private val fetchRecipeTypeListUseCase: ResultUseCase<EmptyRequest, List<RecipeType>>,
+    private val getRecipeUpdateFlowUseCase: FlowUseCase<EmptyRequest, Unit>,
     authorIdProvider: AuthorIdProvider
 ) : ViewModel() {
 
@@ -114,12 +115,19 @@ internal class RecipeSummaryViewModel @Inject constructor(
                     RecipeState.LOCAL,
                     RecipeState.UPLOAD,
                     RecipeState.DOWNLOAD -> {
-                        getMyRecipeFlowUseCase(GetMyRecipeRequest(recipeId))
-                            .collect { recipe ->
-                                _liveRecipe.value = recipe
-                                updateFabState(recipe)
-                                _liveLoading.value = false
-                            }
+                        suspend fun getNewestRecipe() {
+                            getMyRecipeUseCase(GetMyRecipeRequest(recipeId))
+                                .onSuccess { recipe ->
+                                    _liveRecipe.value = recipe
+                                    updateFabState(recipe)
+                                    _liveLoading.value = false
+                                }
+                        }
+
+                        getNewestRecipe()
+                        getRecipeUpdateFlowUseCase(EmptyRequest).collect {
+                            getNewestRecipe()
+                        }
                     }
                     RecipeState.NETWORK -> {
                         fetchOthersRecipeUseCase(FetchOthersRecipeRequest(recipeId))
