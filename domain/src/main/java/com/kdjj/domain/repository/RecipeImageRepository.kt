@@ -9,11 +9,11 @@ interface RecipeImageRepository {
     ): Result<String>
 
     suspend fun copyExternalImageToInternal(
-        imageInfo: List<ImageInfo>
+        imageInfos: List<ImageInfo>
     ): Result<List<String>>
 
     suspend fun copyRemoteImageToInternal(
-        imageInfo: List<ImageInfo>
+        imageInfos: List<ImageInfo>
     ): Result<List<String>>
 
     fun isUriExists(
@@ -21,4 +21,6 @@ interface RecipeImageRepository {
     ): Boolean
 
     suspend fun deleteUselessImages(): Result<Unit>
+
+    suspend fun checkImagesAreValid(uris: List<String>): Result<List<Boolean>>
 }

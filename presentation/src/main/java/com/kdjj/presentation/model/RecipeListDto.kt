@@ -8,7 +8,7 @@ internal data class RecipeListDto(
     val totalTime: Int,
     val stuff: String,
     val viewCount: Int,
-    val imgPath: String,
+    val imgPath: String?,
     val createTime: Long,
     val state: RecipeState,
 )

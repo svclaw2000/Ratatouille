@@ -29,10 +29,6 @@ interface RecipeRepository {
         recipe: Recipe
     ): Result<Unit>
 
-    fun getMyRecipeFlow(
-        recipeId: String
-    ): Flow<Recipe>
-
     suspend fun fetchOthersRecipe(
         recipeId: String
     ): Result<Recipe>

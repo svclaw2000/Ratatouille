@@ -21,7 +21,7 @@ class RecipeListRemoteDataSourceImplTest {
         name = "dummyStep1",
         type = RecipeStepType.values().first(),
         description = "dummyStepDescription",
-        imgPath = "",
+        imgPath = null,
         seconds = 0
     )
     private val dummyRecipe = Recipe(
@@ -29,7 +29,7 @@ class RecipeListRemoteDataSourceImplTest {
         title = "dummyRecipeTitle1",
         type = dummyRecipeType,
         stuff = "",
-        imgPath = "",
+        imgPath = null,
         stepList = listOf(dummyRecipeStep1),
         authorId = "",
         viewCount = 0,

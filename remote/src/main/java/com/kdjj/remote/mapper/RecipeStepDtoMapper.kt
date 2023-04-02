@@ -9,7 +9,7 @@ internal fun RecipeStepDto.toDomain(): RecipeStep =
         name,
         type,
         description,
-        imgPath,
+        if (imgPath.isNullOrEmpty()) null else imgPath,
         seconds
     )
 

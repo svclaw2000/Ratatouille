@@ -21,16 +21,28 @@ internal class SaveRecipeUseCase @Inject constructor(
         val recipe = request.recipe
         val imgPathList = listOf(recipe.imgPath) + recipe.stepList.map { step -> step.imgPath }
 
-        val imgInfoList = imgPathList.filter { path ->
-            path.isNotBlank()
-        }.map { path ->
-            ImageInfo(path, idGenerator.generateId())
-        }
+        val notNullImgPathList = imgPathList.filterNotNull()
+        val imgValidationList = imageRepository.checkImagesAreValid(notNullImgPathList)
+            .getOrElse { List(notNullImgPathList.size) { false } }
 
-        return copyImageToInternal(imgInfoList).flatMap { changedImgPathList ->
-            var i = 0
+        val invalidImgInfoList = notNullImgPathList.zip(imgValidationList)
+            .mapNotNull { (path, isValid) ->
+                if (isValid) null else ImageInfo(path, idGenerator.generateId())
+            }
+
+        return copyImageToInternal(invalidImgInfoList).flatMap { copiedImgPathList ->
             val totalImgList = imgPathList.map { path ->
-                if (path.isEmpty()) path else changedImgPathList[i++]
+                if (path != null) {
+                    val index = notNullImgPathList.indexOfFirst { it == path }
+                    if (imgValidationList[index]) {
+                        notNullImgPathList[index]
+                    } else {
+                        val invalidImgIndex = invalidImgInfoList.indexOfFirst { it.uri == path }
+                        copiedImgPathList[invalidImgIndex]
+                    }
+                } else {
+                    null
+                }
             }
 
             val stepList = recipe.stepList.mapIndexed { idx, step ->
@@ -60,7 +72,10 @@ internal class SaveRecipeUseCase @Inject constructor(
                                     stepList = stepList,
                                     createTime = System.currentTimeMillis()
                                 ),
-                                originRecipe.stepList.map { it.imgPath } + originRecipe.imgPath
+                                originRecipe.stepList
+                                    .map { it.imgPath }
+                                    .plus(originRecipe.imgPath)
+                                    .filterNotNull()
                             )
                         }
                 }

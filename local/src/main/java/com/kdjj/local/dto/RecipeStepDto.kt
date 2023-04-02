@@ -1,8 +1,8 @@
 package com.kdjj.local.dto
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import com.kdjj.domain.model.RecipeStepType
 
 @Entity(
@@ -10,20 +10,22 @@ import com.kdjj.domain.model.RecipeStepType
     foreignKeys = [
         ForeignKey(
             entity = RecipeMetaDto::class,
-            parentColumns = arrayOf("recipeMetaId"),
-            childColumns = arrayOf("parentRecipeId"),
+            parentColumns = arrayOf("recipeMetaId", "isTemp"),
+            childColumns = arrayOf("parentRecipeId", "isTemp"),
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    primaryKeys = ["stepId", "isTemp"]
 )
 internal data class RecipeStepDto(
-    @PrimaryKey
     val stepId: String,
     val name: String,
     val order: Int,
     val type: RecipeStepType,
     val description: String,
-    var imgPath: String,
+    val imgPath: String?,
     val seconds: Int,
     val parentRecipeId: String,
+    @ColumnInfo(defaultValue = "0")
+    val isTemp: Boolean
 )

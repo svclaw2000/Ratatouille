@@ -12,8 +12,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 
 class RecipeListLocalDataSourceImplTest {
 
@@ -27,26 +27,28 @@ class RecipeListLocalDataSourceImplTest {
     private val dummyRecipeTypeDto = RecipeTypeDto(1L, "한식")
 
     private val dummyRecipeMeta = RecipeMetaDto(
-        "recipeId",
-        "두둥탁! 맛있는 감자탕!!",
-        "stuff",
-        "image path",
-        "authorId",
-        false,
-        1000,
-        RecipeState.CREATE,
-        1L,
+        recipeMetaId = "recipeId",
+        title = "두둥탁! 맛있는 감자탕!!",
+        stuff = "stuff",
+        imgPath = "image path",
+        authorId = "authorId",
+        isFavorite = false,
+        createTime = 1000,
+        state = RecipeState.CREATE,
+        recipeTypeId = 1L,
+        isTemp = false
     )
 
     private val dummyRecipeStepDto = RecipeStepDto(
-        "stepId",
-        "삶기",
-        1,
-        RecipeStepType.COOK,
-        "description",
-        "image path",
-        1000,
-        "recipeId"
+        stepId = "stepId",
+        name = "삶기",
+        order = 1,
+        type = RecipeStepType.COOK,
+        description = "description",
+        imgPath = "image path",
+        seconds = 1000,
+        parentRecipeId = "recipeId",
+        isTemp = false,
     )
 
     private val dummyRecipeDto = RecipeDto(

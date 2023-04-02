@@ -4,10 +4,8 @@ import com.kdjj.data.datasource.RecipeLocalDataSource
 import com.kdjj.data.datasource.RecipeRemoteDataSource
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.repository.RecipeRepository
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 internal class RecipeRepositoryImpl @Inject constructor(
@@ -66,12 +64,6 @@ internal class RecipeRepositoryImpl @Inject constructor(
         recipe: Recipe
     ): Result<Unit> {
         return recipeRemoteDataSource.deleteRecipe(recipe)
-    }
-
-    override fun getMyRecipeFlow(
-        recipeId: String
-    ): Flow<Recipe> {
-        return recipeLocalDataSource.getRecipeFlow(recipeId)
     }
 
     override suspend fun fetchOthersRecipe(recipeId: String): Result<Recipe> {

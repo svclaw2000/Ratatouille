@@ -1,7 +1,7 @@
 package com.kdjj.local.dataSource
 
 import com.kdjj.local.ImageFileHelper
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.dto.UselessImageDto
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -12,7 +12,7 @@ import org.mockito.Mockito.*
 class RecipeImageLocalDataSourceImplTest {
 
     private lateinit var mockImageFileHelper: ImageFileHelper
-    private lateinit var mockUselessImageDao: UselessImageDao
+    private lateinit var mockUselessImageDao: RecipeImageDao
     private lateinit var recipeImageLocalDataSourceImpl: RecipeImageLocalDataSourceImpl
 
     private val dummyUri = "this is test uri1"
@@ -56,7 +56,7 @@ class RecipeImageLocalDataSourceImplTest {
 
     @Before
     fun setup() {
-        mockUselessImageDao = mock(UselessImageDao::class.java)
+        mockUselessImageDao = mock(RecipeImageDao::class.java)
         mockImageFileHelper = mock(ImageFileHelper::class.java)
         recipeImageLocalDataSourceImpl =
             RecipeImageLocalDataSourceImpl(mockImageFileHelper, mockUselessImageDao)
@@ -118,6 +118,7 @@ class RecipeImageLocalDataSourceImplTest {
     fun deleteUselessImages_getSuccess_true(): Unit = runBlocking {
         //given
         `when`(mockUselessImageDao.getAllUselessImage()).thenReturn(dummyUselessImageDtoList)
+        `when`(mockUselessImageDao.getAllValidImage()).thenReturn(emptyList())
         //when
         recipeImageLocalDataSourceImpl.deleteUselessImages()
         //then

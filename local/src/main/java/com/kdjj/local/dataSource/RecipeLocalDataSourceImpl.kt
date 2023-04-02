@@ -5,21 +5,19 @@ import com.kdjj.data.datasource.RecipeLocalDataSource
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.exception.NotExistRecipeException
 import com.kdjj.local.dao.RecipeDao
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.UselessImageDto
 import com.kdjj.local.mapper.toDomain
 import com.kdjj.local.mapper.toDto
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class RecipeLocalDataSourceImpl @Inject constructor(
     private val recipeDatabase: RecipeDatabase,
     private val recipeDao: RecipeDao,
-    private val uselessImageDao: UselessImageDao
+    private val recipeImageDao: RecipeImageDao
 ) : RecipeLocalDataSource {
 
     override suspend fun saveRecipe(
@@ -28,15 +26,16 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.deleteUselessImage(
+                    recipeImageDao.deleteUselessImage(
                         recipe.stepList
                             .map { it.imgPath }
-                            .plus(recipe.imgPath),
+                            .plus(recipe.imgPath)
+                            .filterNotNull()
                     )
                     recipeDao.deleteStepList(recipe.recipeId)
-                    recipeDao.insertRecipeMeta(recipe.toDto())
+                    recipeDao.insertRecipeMeta(recipe.toDto(isTemp = false))
                     recipe.stepList.forEachIndexed { idx, recipeStep ->
-                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1))
+                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1, isTemp = false))
                     }
                 }
             }
@@ -47,7 +46,7 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
     ): Result<Unit> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeDao.updateRecipeMeta(recipe.toDto())
+                recipeDao.updateRecipeMeta(recipe.toDto(isTemp = false))
             }
         }
 
@@ -58,19 +57,20 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.deleteUselessImage(
-                        recipe.stepList
-                            .map { it.imgPath }
-                            .plus(recipe.imgPath),
-                    )
-                    uselessImageDao.insertUselessImage(
+                    recipeImageDao.insertUselessImage(
                         originImgPathList.filter { it.isNotBlank() }
                             .map { UselessImageDto(it) }
                     )
+                    recipeImageDao.deleteUselessImage(
+                        recipe.stepList
+                            .map { it.imgPath }
+                            .plus(recipe.imgPath)
+                            .filterNotNull(),
+                    )
                     recipeDao.deleteStepList(recipe.recipeId)
-                    recipeDao.insertRecipeMeta(recipe.toDto())
+                    recipeDao.insertRecipeMeta(recipe.toDto(isTemp = false))
                     recipe.stepList.forEachIndexed { idx, recipeStep ->
-                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1))
+                        recipeDao.insertRecipeStep(recipeStep.toDto(recipe.recipeId, idx + 1, isTemp = false))
                     }
                 }
             }
@@ -82,28 +82,24 @@ internal class RecipeLocalDataSourceImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             runCatching {
                 recipeDatabase.withTransaction {
-                    uselessImageDao.insertUselessImage(
+                    recipeImageDao.insertUselessImage(
                         recipe.stepList
-                            .map { UselessImageDto(it.imgPath) }
-                            .plus(UselessImageDto(recipe.imgPath)),
+                            .map { it.imgPath }
+                            .plus(recipe.imgPath)
+                            .filterNotNull()
+                            .map { UselessImageDto(it) }
                     )
-                    recipeDao.deleteRecipe(recipe.toDto())
+                    recipeDao.deleteRecipe(recipe.recipeId)
                 }
             }
         }
-
-    override fun getRecipeFlow(
-        recipeId: String
-    ): Flow<Recipe> =
-        recipeDao.getRecipe(recipeId)
-            .map { it.toDomain() }
 
     override suspend fun getRecipe(
         recipeId: String
     ): Result<Recipe> =
         withContext(Dispatchers.IO) {
             runCatching {
-                recipeDao.getRecipeDto(recipeId)?.toDomain() ?: throw NotExistRecipeException()
+                recipeDao.getRecipeDto(recipeId, isTemp = false)?.toDomain() ?: throw NotExistRecipeException()
             }
         }
 }

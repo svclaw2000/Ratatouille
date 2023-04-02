@@ -9,8 +9,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 
 class RecipeRemoteDataSourceImplTest {
 
@@ -23,7 +23,7 @@ class RecipeRemoteDataSourceImplTest {
         name = "dummyStep1",
         type = RecipeStepType.values().first(),
         description = "dummyStepDescription",
-        imgPath = "",
+        imgPath = null,
         seconds = 0
     )
     private val dummyRecipe = Recipe(
@@ -31,7 +31,7 @@ class RecipeRemoteDataSourceImplTest {
         title = "dummyRecipeTitle1",
         type = dummyRecipeType,
         stuff = "",
-        imgPath = "",
+        imgPath = null,
         stepList = listOf(dummyRecipeStep1),
         authorId = "",
         viewCount = 0,

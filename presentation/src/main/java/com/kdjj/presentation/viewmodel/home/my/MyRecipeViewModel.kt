@@ -131,6 +131,7 @@ internal class MyRecipeViewModel @Inject constructor(
             }.onFailure {
                 if (it !is CancellationException) {
                     _eventMyRecipe.value = Event(MyRecipeEvent.DataLoadFailed)
+                    it.printStackTrace()
                 }
             }
             _liveFetching.value = false

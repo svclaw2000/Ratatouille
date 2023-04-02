@@ -2,7 +2,7 @@ package com.kdjj.local.dataSource
 
 import com.kdjj.domain.model.*
 import com.kdjj.local.dao.RecipeDao
-import com.kdjj.local.dao.UselessImageDao
+import com.kdjj.local.dao.RecipeImageDao
 import com.kdjj.local.database.RecipeDatabase
 import com.kdjj.local.dto.RecipeDto
 import com.kdjj.local.dto.RecipeMetaDto
@@ -10,8 +10,6 @@ import com.kdjj.local.dto.RecipeStepDto
 import com.kdjj.local.dto.RecipeTypeDto
 import com.kdjj.local.mapper.toDomain
 import com.kdjj.local.mapper.toDto
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,7 +20,7 @@ class RecipeLocalDataSourceImplTest {
 
     private lateinit var mockRecipeDatabase: RecipeDatabase
     private lateinit var mockRecipeDao: RecipeDao
-    private lateinit var mockUselessImageDao: UselessImageDao
+    private lateinit var mockUselessImageDao: RecipeImageDao
     private lateinit var recipeLocalDataSourceImpl: RecipeLocalDataSourceImpl
 
     private val dummyRecipeStepList = listOf(
@@ -51,26 +49,28 @@ class RecipeLocalDataSourceImplTest {
     )
 
     private val dummyRecipeMeta = RecipeMetaDto(
-        "recipeId",
-        "두둥탁! 맛있는 감자탕!!",
-        "stuff",
-        "image path",
-        "authorId",
-        false,
-        1000,
-        RecipeState.CREATE,
-        1L,
+        recipeMetaId = "recipeId",
+        title = "두둥탁! 맛있는 감자탕!!",
+        stuff = "stuff",
+        imgPath = "image path",
+        authorId = "authorId",
+        isFavorite = false,
+        createTime = 1000,
+        state = RecipeState.CREATE,
+        recipeTypeId = 1L,
+        isTemp = false,
     )
 
     private val dummyRecipeStepDto = RecipeStepDto(
-        "stepId",
-        "삶기",
-        1,
-        RecipeStepType.COOK,
-        "description",
-        "image path",
-        1000,
-        "recipeId"
+        stepId = "stepId",
+        name = "삶기",
+        order = 1,
+        type = RecipeStepType.COOK,
+        description = "description",
+        imgPath = "image path",
+        seconds = 1000,
+        parentRecipeId = "recipeId",
+        isTemp = false,
     )
 
     private val dummyRecipeTypeDto = RecipeTypeDto(1L, "한식")
@@ -87,7 +87,7 @@ class RecipeLocalDataSourceImplTest {
     fun setup() {
         mockRecipeDatabase = mock(RecipeDatabase::class.java)
         mockRecipeDao = mock(RecipeDao::class.java)
-        mockUselessImageDao = mock(UselessImageDao::class.java)
+        mockUselessImageDao = mock(RecipeImageDao::class.java)
         recipeLocalDataSourceImpl =
             RecipeLocalDataSourceImpl(mockRecipeDatabase, mockRecipeDao, mockUselessImageDao)
     }
@@ -97,23 +97,13 @@ class RecipeLocalDataSourceImplTest {
         //given
         recipeLocalDataSourceImpl.updateRecipe(dummyRecipe)
         //then
-        verify(mockRecipeDao, times(1)).updateRecipeMeta(dummyRecipe.toDto())
-    }
-
-    @Test
-    fun getRecipeFlow_getRecipeFlowByRecipeId_true(): Unit = runBlocking {
-        //when
-        `when`(mockRecipeDao.getRecipe(dummyRecipeId)).thenReturn(flowOf(dummyRecipeDto))
-        //given
-        val testResult = recipeLocalDataSourceImpl.getRecipeFlow(dummyRecipeId)
-        //then
-        assertEquals(dummyRecipeDto.toDomain(), testResult.first())
+        verify(mockRecipeDao, times(1)).updateRecipeMeta(dummyRecipe.toDto(isTemp = false))
     }
 
     @Test
     fun getRecipe_getRecipeByRecipeId_true(): Unit = runBlocking {
         //when
-        `when`(mockRecipeDao.getRecipeDto(dummyRecipeId)).thenReturn(dummyRecipeDto)
+        `when`(mockRecipeDao.getRecipeDto(dummyRecipeId, isTemp = false)).thenReturn(dummyRecipeDto)
         //given
         val testResult = recipeLocalDataSourceImpl.getRecipe(dummyRecipeId)
         //then

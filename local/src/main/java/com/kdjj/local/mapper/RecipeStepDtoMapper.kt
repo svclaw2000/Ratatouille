@@ -5,22 +5,23 @@ import com.kdjj.local.dto.RecipeStepDto
 
 internal fun RecipeStepDto.toDomain() =
     RecipeStep(
-        stepId,
-        name,
-        type,
-        description,
-        imgPath,
-        seconds
+        stepId = stepId,
+        name = name,
+        type = type,
+        description = description,
+        imgPath = imgPath,
+        seconds = seconds
     )
 
-internal fun RecipeStep.toDto(recipeMetaID: String, order: Int): RecipeStepDto =
+internal fun RecipeStep.toDto(recipeMetaID: String, order: Int, isTemp: Boolean): RecipeStepDto =
     RecipeStepDto(
-        stepId,
-        name,
-        order,
-        type,
-        description,
-        imgPath,
-        seconds,
-        recipeMetaID
+        stepId = stepId,
+        name = name,
+        order = order,
+        type = type,
+        description = description,
+        imgPath = imgPath,
+        seconds = seconds,
+        parentRecipeId = recipeMetaID,
+        isTemp = isTemp
     )

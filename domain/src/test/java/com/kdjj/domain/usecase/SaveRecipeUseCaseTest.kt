@@ -64,6 +64,7 @@ class SaveRecipeUseCaseTest {
         whenever(idGenerator.generateId()).thenReturn(DUMMY_STRING)
         whenever(imageRepository.copyExternalImageToInternal(any()))
             .thenReturn(Result.success(listOf(DUMMY_STRING, DUMMY_STRING)))
+        whenever(imageRepository.checkImagesAreValid(any())).thenReturn(Result.failure(Exception()))
         whenever(recipeRepository.saveMyRecipe(any())).thenAnswer {
             val savedRecipe = it.arguments[0] as Recipe
             assertEquals(RecipeState.LOCAL, savedRecipe.state)
@@ -84,6 +85,7 @@ class SaveRecipeUseCaseTest {
         whenever(idGenerator.generateId()).thenReturn(DUMMY_STRING)
         whenever(imageRepository.copyExternalImageToInternal(any()))
             .thenReturn(Result.success(listOf(DUMMY_STRING, DUMMY_STRING)))
+        whenever(imageRepository.checkImagesAreValid(any())).thenReturn(Result.failure(Exception()))
         whenever(recipeRepository.getLocalRecipe(any()))
             .thenReturn(Result.success(dummyRecipe))
         whenever(recipeRepository.updateMyRecipe(any(), any())).thenAnswer {
@@ -113,6 +115,8 @@ class SaveRecipeUseCaseTest {
             val savedRecipe = it.arguments[0] as Recipe
             assertEquals(RecipeState.UPLOAD, savedRecipe.state)
         }
+        whenever(imageRepository.checkImagesAreValid(any()))
+            .thenReturn(Result.failure(Exception()))
 
         // when
         val result = saveRecipeUseCase(SaveRecipeRequest(dummyRecipe.copy(
@@ -130,6 +134,7 @@ class SaveRecipeUseCaseTest {
         whenever(idGenerator.generateId()).thenReturn(DUMMY_STRING)
         whenever(imageRepository.copyExternalImageToInternal(any()))
             .thenReturn(Result.success(listOf(DUMMY_STRING, DUMMY_STRING)))
+        whenever(imageRepository.checkImagesAreValid(any())).thenReturn(Result.failure(Exception()))
         whenever(recipeRepository.getLocalRecipe(any()))
             .thenReturn(Result.success(dummyRecipe))
         whenever(recipeRepository.updateMyRecipe(any(), any())).thenAnswer {
@@ -153,6 +158,7 @@ class SaveRecipeUseCaseTest {
         whenever(idGenerator.generateId()).thenReturn(DUMMY_STRING)
         whenever(imageRepository.copyRemoteImageToInternal(any()))
             .thenReturn(Result.success(listOf(DUMMY_STRING, DUMMY_STRING)))
+        whenever(imageRepository.checkImagesAreValid(any())).thenReturn(Result.failure(Exception()))
         whenever(recipeRepository.saveMyRecipe(any())).thenAnswer {
             val savedRecipe = it.arguments[0] as Recipe
             assertEquals(RecipeState.DOWNLOAD, savedRecipe.state)
