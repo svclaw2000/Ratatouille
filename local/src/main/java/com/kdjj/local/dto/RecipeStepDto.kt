@@ -3,6 +3,7 @@ package com.kdjj.local.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.kdjj.domain.model.RecipeStepType
 
 @Entity(
@@ -15,7 +16,8 @@ import com.kdjj.domain.model.RecipeStepType
             onDelete = ForeignKey.CASCADE
         )
     ],
-    primaryKeys = ["stepId", "isTemp"]
+    primaryKeys = ["stepId", "isTemp"],
+    indices = [Index("parentRecipeId", "isTemp")]
 )
 internal data class RecipeStepDto(
     val stepId: String,

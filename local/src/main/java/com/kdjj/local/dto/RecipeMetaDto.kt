@@ -3,6 +3,7 @@ package com.kdjj.local.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.kdjj.domain.model.RecipeState
 
 @Entity(
@@ -15,7 +16,8 @@ import com.kdjj.domain.model.RecipeState
             onDelete = ForeignKey.RESTRICT
         )
     ],
-    primaryKeys = ["recipeMetaId", "isTemp"]
+    primaryKeys = ["recipeMetaId", "isTemp"],
+    indices = [Index("recipeTypeId")]
 )
 internal data class RecipeMetaDto(
     val recipeMetaId: String,
