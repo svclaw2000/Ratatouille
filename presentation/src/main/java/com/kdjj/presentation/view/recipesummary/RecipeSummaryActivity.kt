@@ -26,7 +26,6 @@ import com.kdjj.presentation.view.recipedetail.RecipeDetailActivity
 import com.kdjj.presentation.view.recipeeditor.RecipeEditorActivity
 import com.kdjj.presentation.viewmodel.recipesummary.RecipeSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 internal class RecipeSummaryActivity : AppCompatActivity() {
@@ -104,7 +103,7 @@ internal class RecipeSummaryActivity : AppCompatActivity() {
                         .alpha(1.0f)
                         .setDuration(80L * index)
                         .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationStart(animation: Animator?) {
+                            override fun onAnimationStart(animation: Animator) {
                                 button.visibility = View.VISIBLE
                             }
                         })
@@ -115,7 +114,7 @@ internal class RecipeSummaryActivity : AppCompatActivity() {
                         .alpha(0.0f)
                         .setDuration(80L * index)
                         .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) {
+                            override fun onAnimationEnd(animation: Animator) {
                                 button.visibility = View.GONE
                             }
                         })

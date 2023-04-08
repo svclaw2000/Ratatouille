@@ -1,12 +1,28 @@
 package com.kdjj.presentation.viewmodel.recipeeditor
 
-import androidx.lifecycle.*
-import androidx.work.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 import com.kdjj.domain.model.RecipeStepType
 import com.kdjj.domain.model.RecipeType
-import com.kdjj.domain.model.request.*
+import com.kdjj.domain.model.request.DeleteRecipeTempRequest
+import com.kdjj.domain.model.request.EmptyRequest
+import com.kdjj.domain.model.request.FetchRecipeTempRequest
+import com.kdjj.domain.model.request.GetMyRecipeRequest
+import com.kdjj.domain.model.request.SaveRecipeRequest
+import com.kdjj.domain.model.request.SaveRecipeTempRequest
+import com.kdjj.domain.model.request.ValidateRecipeFlowRequest
+import com.kdjj.domain.model.request.ValidateRecipeRequest
+import com.kdjj.domain.model.request.ValidateRecipeStepFlowRequest
 import com.kdjj.domain.model.response.ValidateRecipeFlowResponse
 import com.kdjj.domain.model.response.ValidateRecipeResponse
 import com.kdjj.domain.model.response.ValidateRecipeStepFlowResponse
@@ -21,7 +37,6 @@ import com.kdjj.presentation.model.RecipeEditorDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -329,6 +344,9 @@ internal class RecipeEditorViewModel @Inject constructor(
                     model.imgPathFlow.value = uri
                 is RecipeEditorDto.RecipeStepDto ->
                     model.imgPathFlow.value = uri
+                RecipeEditorDto.PlusButton -> {
+                    // no-op
+                }
             }
             doEdit()
         }
@@ -344,6 +362,9 @@ internal class RecipeEditorViewModel @Inject constructor(
             when (model) {
                 is RecipeEditorDto.RecipeMetaDto -> model.imgPathFlow.value = ""
                 is RecipeEditorDto.RecipeStepDto -> model.imgPathFlow.value = ""
+                RecipeEditorDto.PlusButton -> {
+                    // no-op
+                }
             }
         }
         _liveImgTarget.value = null
