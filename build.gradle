@@ -1,16 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        hilt_version = '2.40.1'
-        dagger_version = "2.39.1"
-        livedata_version="2.4.0-rc01"
-        room_version="2.4.2"
+        hilt_version = '2.45'
+        dagger_version = "2.45"
+        livedata_version="2.6.1"
+        room_version="2.5.1"
         coroutines_version="1.5.0"
         junit_version="4.13.2"
         mockito_version="4.0.0"
         mockito_inline_version="3.12.4"
-        nav_version = "2.3.5"
-        work_version = "2.7.0"
+        nav_version = "2.5.3"
+        work_version = "2.8.1"
     }
     repositories {
         google()
@@ -18,10 +18,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
