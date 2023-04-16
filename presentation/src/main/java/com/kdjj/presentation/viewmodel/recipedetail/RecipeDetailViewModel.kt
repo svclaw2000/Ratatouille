@@ -1,7 +1,11 @@
 package com.kdjj.presentation.viewmodel.recipedetail
 
 import android.media.Ringtone
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.kdjj.domain.model.Recipe
 import com.kdjj.domain.model.RecipeState
 import com.kdjj.domain.model.RecipeStep
@@ -128,6 +132,9 @@ internal class RecipeDetailViewModel @Inject constructor(
             }
             StepTimerModel.TimerState.END -> {
                 removeTimer(model)
+            }
+            null -> {
+                // no-op
             }
         }
     }

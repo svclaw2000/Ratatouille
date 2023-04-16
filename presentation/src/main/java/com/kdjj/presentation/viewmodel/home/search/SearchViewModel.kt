@@ -22,7 +22,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -145,6 +144,10 @@ internal class SearchViewModel @Inject constructor(
                             setException(t)
                         }
                 }
+
+                null -> {
+                    // no-op
+                }
             }
             isFetching = false
         }
@@ -193,6 +196,9 @@ internal class SearchViewModel @Inject constructor(
                         .onFailure { t ->
                             setException(t)
                         }
+                }
+                null -> {
+                    // no-op
                 }
             }
             isFetching = false
